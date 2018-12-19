@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { Urls } from '../urls';
 
-import { Feature } from '../interfaces';
+import { Feature } from '../models';
 
 @Injectable()
 export class FeatureService {

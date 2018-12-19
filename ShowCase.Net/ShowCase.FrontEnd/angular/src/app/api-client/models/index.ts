@@ -1,7 +1,7 @@
-export * from './user';
+export * from './entities/user';
 
-export * from './page';
-export * from './project';
-export * from './feature';
+export * from './entities/page';
+export * from './entities/project';
+export * from './entities/feature';
 
-export * from './settings';
+export * from './entities/settings';

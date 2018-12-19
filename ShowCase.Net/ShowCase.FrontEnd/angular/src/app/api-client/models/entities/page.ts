@@ -1,4 +1,4 @@
-import { Content } from './content';
+import { Content } from '../base/content';
 
 export class Page extends Content {
     content: string;

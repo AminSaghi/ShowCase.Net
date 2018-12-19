@@ -1,4 +1,4 @@
-import { Content } from './content';
+import { Content } from '../base/content';
 import { Project } from './project';
 
 export class Feature extends Content {
