@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShowCase.Data.DbContexts;
 
-namespace Api
+namespace ShowCase.Api
 {
     public class Startup
     {
