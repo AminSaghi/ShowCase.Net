@@ -1,6 +1,7 @@
 ﻿using ShowCase.Data.Models.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ShowCase.Data.Models.Entities

@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShowCase.Data.DbContexts;
+using ShowCase.Data.Models.ApiModels.Page;
+using ShowCase.Data.Models.Entities;
 
 namespace ShowCase.Api
 {
@@ -47,6 +49,21 @@ namespace ShowCase.Api
         {
             TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
             TypeAdapterConfig.GlobalSettings.Default.IgnoreNonMapped(true);
+
+            #region Page
+
+            TypeAdapterConfig<Page, ListPagesApiModel>
+                .ForType()
+                .Map(dest => dest.id, src => src.Id)
+                .Map(dest => dest.orderIndex, src => src.OrderIndex)
+                .Map(dest => dest.title, src => src.Title)
+                .Map(dest => dest.slug, src => src.Slug)
+                .Map(dest => dest.updateDateTime, 
+                    src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm")) 
+                .Map(dest => dest.published, src => src.Published)
+                .Map(dest => dest.children, src => src.Children);
+
+            #endregion
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ShowCase.Data.Models.Base
 {
     public class Content
     {
-        public int Id { get; set; }
+        public int Id { get; set; }        
 
         public int OrderIndex { get; set; }
         public string Slug { get; set; }
