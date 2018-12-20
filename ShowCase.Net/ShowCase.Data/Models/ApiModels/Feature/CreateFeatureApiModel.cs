@@ -6,6 +6,7 @@ namespace ShowCase.Data.Models.ApiModels.Feature
 {
     public class CreateFeatureApiModel
     {
+        public int projectId { get; set; }
         public int parentId { get; set; }
 
         public string title { get; set; }
