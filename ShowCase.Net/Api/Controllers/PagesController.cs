@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.Entities;
+using ShowCase.Util.StaticClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace ShowCase.Api.Controllers
                 }
                 else
                 {
-                    return NotFound("Page NOT found.");
+                    return NotFound(ReturningMessages.NotFound(page));
                 }
             }
             catch (Exception ex)
@@ -80,9 +81,8 @@ namespace ShowCase.Api.Controllers
                             .FirstOrDefaultAsync(p => p.Id == model.parentId);
 
                         if (parent == null)
-                        {
-                            //TODO: get message from the helper.
-                            return BadRequest("");
+                        {                            
+                            return BadRequest(ReturningMessages.InvalidDataSupplied());
                         }
                     }
 
@@ -107,9 +107,8 @@ namespace ShowCase.Api.Controllers
 
                     db.Pages.Add(page);
                     await db.SaveChangesAsync();
-
-                    //TODO: create messages helper.
-                    return Ok("");
+                    
+                    return Ok(ReturningMessages.CreateSuccessful(page));
                 }
                 catch (Exception ex)
                 {
@@ -118,7 +117,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -146,9 +145,8 @@ namespace ShowCase.Api.Controllers
                                 page.Parent = parent;                                
                             }
                             else
-                            {
-                                //TODO: get message from the helper.
-                                return BadRequest("");
+                            {                                
+                                return BadRequest(ReturningMessages.InvalidDataSupplied());
                             }
                         }
                         page.OrderIndex = model.orderIndex;
@@ -160,12 +158,12 @@ namespace ShowCase.Api.Controllers
 
                         db.Entry(page).State = EntityState.Modified;
                         await db.SaveChangesAsync();
-                        //TODO: message.
-                        return Ok("");
+                        
+                        return Ok(ReturningMessages.UpdateSuccessful(page));
                     }
                     else
                     {
-                        return NotFound("");
+                        return NotFound(ReturningMessages.NotFound(page));
                     }
                 }
                 catch (Exception ex)
@@ -175,7 +173,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -193,11 +191,11 @@ namespace ShowCase.Api.Controllers
                     db.Pages.Remove(page);
                     await db.SaveChangesAsync();
 
-                    return Ok("");
+                    return Ok(ReturningMessages.DeleteSuccessful(page));
                 }
                 else
                 {
-                    return NotFound("Page NOT found.");
+                    return NotFound(ReturningMessages.NotFound(page));
                 }
             }
             catch (Exception ex)

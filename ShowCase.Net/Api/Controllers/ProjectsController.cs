@@ -10,6 +10,7 @@ using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
 using ShowCase.Data.Models.Entities;
+using ShowCase.Util.StaticClasses;
 
 namespace ShowCase.Api.Controllers
 {
@@ -56,7 +57,7 @@ namespace ShowCase.Api.Controllers
                 }
                 else
                 {
-                    return NotFound("Page NOT found.");
+                    return NotFound(ReturningMessages.NotFound(project));
                 }
             }
             catch (Exception ex)
@@ -89,9 +90,8 @@ namespace ShowCase.Api.Controllers
 
                     db.Projects.Add(project);
                     await db.SaveChangesAsync();
-
-                    //TODO: create messages helper.
-                    return Ok("");
+                    
+                    return Ok(ReturningMessages.CreateSuccessful(project));
                 }
                 catch (Exception ex)
                 {
@@ -100,7 +100,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -125,12 +125,12 @@ namespace ShowCase.Api.Controllers
 
                         db.Entry(project).State = EntityState.Modified;
                         await db.SaveChangesAsync();
-                        //TODO: message.
-                        return Ok("");
+                        
+                        return Ok(ReturningMessages.UpdateSuccessful(project));
                     }
                     else
                     {
-                        return NotFound("");
+                        return NotFound(ReturningMessages.NotFound(project));
                     }
                 }
                 catch (Exception ex)
@@ -140,7 +140,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -158,11 +158,11 @@ namespace ShowCase.Api.Controllers
                     db.Projects.Remove(project);
                     await db.SaveChangesAsync();
 
-                    return Ok("");
+                    return Ok(ReturningMessages.DeleteSuccessful(project));
                 }
                 else
                 {
-                    return NotFound("Page NOT found.");
+                    return NotFound(ReturningMessages.NotFound(project));
                 }
             }
             catch (Exception ex)

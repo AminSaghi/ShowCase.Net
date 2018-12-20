@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.Entities;
+using ShowCase.Util.StaticClasses;
 
 namespace ShowCase.Api.Controllers
 {
@@ -55,9 +56,8 @@ namespace ShowCase.Api.Controllers
                     return Ok(feature.Adapt<FeatureApiModel>());
                 }
                 else
-                {
-                    //TODO:
-                    return NotFound("Page NOT found.");
+                {                    
+                    return NotFound(ReturningMessages.NotFound(feature));
                 }
             }
             catch (Exception ex)
@@ -78,9 +78,8 @@ namespace ShowCase.Api.Controllers
                         .FirstOrDefaultAsync(p => p.Id == model.projectId);
 
                     if (project == null)
-                    {
-                        //TODO: get message from the helper.
-                        return BadRequest("");
+                    {                        
+                        return BadRequest(ReturningMessages.InvalidDataSupplied());
                     }
 
                     Feature parent = null;
@@ -90,9 +89,8 @@ namespace ShowCase.Api.Controllers
                             .FirstOrDefaultAsync(p => p.Id == model.parentId);
 
                         if (parent == null)
-                        {
-                            //TODO: get message from the helper.
-                            return BadRequest("");
+                        {                            
+                            return BadRequest(ReturningMessages.InvalidDataSupplied());
                         }
                     }
 
@@ -118,9 +116,8 @@ namespace ShowCase.Api.Controllers
 
                     db.Features.Add(feature);
                     await db.SaveChangesAsync();
-
-                    //TODO: create messages helper.
-                    return Ok("");
+                    
+                    return Ok(ReturningMessages.CreateSuccessful(feature));
                 }
                 catch (Exception ex)
                 {
@@ -129,7 +126,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -156,8 +153,7 @@ namespace ShowCase.Api.Controllers
                         }
                         else
                         {
-                            //TODO: get message from the helper.
-                            return BadRequest("");
+                            return BadRequest(ReturningMessages.InvalidDataSupplied());
                         }
 
                         if (model.parentId > 0)
@@ -170,9 +166,8 @@ namespace ShowCase.Api.Controllers
                                 feature.Parent = parent;                                
                             }
                             else
-                            {
-                                //TODO: get message from the helper.
-                                return BadRequest("");
+                            {                       
+                                return BadRequest(ReturningMessages.InvalidDataSupplied());
                             }
                         }
 
@@ -185,12 +180,12 @@ namespace ShowCase.Api.Controllers
 
                         db.Entry(feature).State = EntityState.Modified;
                         await db.SaveChangesAsync();
-                        //TODO: message.
-                        return Ok("");
+                        
+                        return Ok(ReturningMessages.UpdateSuccessful(feature));
                     }
                     else
                     {
-                        return NotFound("");
+                        return NotFound(ReturningMessages.NotFound(feature));
                     }
                 }
                 catch (Exception ex)
@@ -200,7 +195,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest("Invalid data supplied.");
+                return BadRequest(ReturningMessages.InvalidDataSupplied());
             }
         }
 
@@ -217,13 +212,12 @@ namespace ShowCase.Api.Controllers
                 {
                     db.Features.Remove(feature);
                     await db.SaveChangesAsync();
-
-                    return Ok("");
+                    
+                    return Ok(ReturningMessages.DeleteSuccessful(feature));
                 }
                 else
-                {
-                    //TODO:
-                    return NotFound("Page NOT found.");
+                {             
+                    return NotFound(ReturningMessages.NotFound(feature));
                 }
             }
             catch (Exception ex)
