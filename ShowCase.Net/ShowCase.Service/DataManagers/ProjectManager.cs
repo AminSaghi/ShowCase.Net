@@ -14,22 +14,27 @@ namespace ShowCase.Service.DataManagers
 {
     public class ProjectManager
     {
-        #region Singleton
+        //#region Singleton
 
-        private static readonly ProjectManager instance = new ProjectManager(DataDbContext.CreateContext());
+        //private static readonly ProjectManager instance = new ProjectManager(DataDbContext.CreateContext());
 
-        static ProjectManager()
-        {
-        }
+        //static ProjectManager()
+        //{
+        //}
 
-        private ProjectManager(DataDbContext dbcontext)
+        //private ProjectManager(DataDbContext dbcontext)
+        //{
+        //    db = dbcontext;
+        //}
+
+        //public static ProjectManager Instance => instance;
+
+        //#endregion
+
+        public ProjectManager(DataDbContext dbcontext)
         {
             db = dbcontext;
         }
-
-        public static ProjectManager Instance => instance;
-
-        #endregion
 
         private DataDbContext db;
 

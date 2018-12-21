@@ -11,12 +11,19 @@ namespace ShowCase.Api.Controllers
 {
     public class ProjectsController : BaseController
     {
+        public ProjectsController(ProjectManager projectManager)
+        {
+            ProjectManager = projectManager;
+        }
+
+        private ProjectManager ProjectManager { get; }
+
         #region CRUD
 
         [HttpGet]
         public async Task<IActionResult> GetPublishedProjects()
         {
-            var getProjectsResult = await ProjectManager.Instance.GetProjectsAsync();
+            var getProjectsResult = await ProjectManager.GetProjectsAsync();
             if (getProjectsResult.Success)
             {
                 return Ok(getProjectsResult.ReturningValue.ToArray().Adapt<ListProjectsApiModel[]>());
@@ -30,7 +37,7 @@ namespace ShowCase.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPublishedProject(int id)
         {
-            var getProjectResult = await ProjectManager.Instance.GetProjectAsync(id);
+            var getProjectResult = await ProjectManager.GetProjectAsync(id);
             if (getProjectResult.Success)
             {
                 return Ok(getProjectResult.ReturningValue.Adapt<ProjectApiModel>());
@@ -47,7 +54,7 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createProjectResult = await ProjectManager.Instance.CreateProjectAsync(model);
+                var createProjectResult = await ProjectManager.CreateProjectAsync(model);
                 if (createProjectResult.Success)
                 {
                     return Ok(createProjectResult.Message);
@@ -69,7 +76,7 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var updateProjectResult = await ProjectManager.Instance.UpdateProjectAsync(model);
+                var updateProjectResult = await ProjectManager.UpdateProjectAsync(model);
                 if (updateProjectResult.Success)
                 {
                     return Ok(updateProjectResult.Message);
@@ -89,7 +96,7 @@ namespace ShowCase.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(int id)
         {
-            var deleteProjectResult = await ProjectManager.Instance.DeleteProjectAsync(id);
+            var deleteProjectResult = await ProjectManager.DeleteProjectAsync(id);
             if (deleteProjectResult.Success)
             {
                 return Ok(deleteProjectResult.Message);

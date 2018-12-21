@@ -14,6 +14,7 @@ using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
 using ShowCase.Data.Models.Entities;
+using ShowCase.Service.DataManagers;
 
 namespace ShowCase.Api
 {
@@ -31,7 +32,11 @@ namespace ShowCase.Api
             //services.AddDbContext<DataDbContext>(options =>
             //    options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);            
 
-            services.AddDbContext<DataDbContext>(ServiceLifetime.Transient);
+            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);
+
+            services.AddScoped<PageManager>();
+            services.AddScoped<ProjectManager>();
+            services.AddScoped<FeatureManager>();
 
             services.AddMvc();
         }

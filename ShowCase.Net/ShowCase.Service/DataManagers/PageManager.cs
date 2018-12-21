@@ -14,22 +14,27 @@ namespace ShowCase.Service.DataManagers
 {
     public class PageManager
     {
-        #region Singleton
+        //#region Singleton
 
-        private static readonly PageManager instance = new PageManager(DataDbContext.CreateContext());
+        //private static readonly PageManager instance = new PageManager(DataDbContext.CreateContext());
 
-        static PageManager()
-        {
-        }
+        //static PageManager()
+        //{
+        //}
 
-        private PageManager(DataDbContext dbcontext)
+        //private PageManager(DataDbContext dbcontext)
+        //{
+        //    db = dbcontext;
+        //}
+
+        //public static PageManager Instance => instance;
+
+        //#endregion
+
+        public PageManager(DataDbContext dbcontext)
         {
             db = dbcontext;
         }
-
-        public static PageManager Instance => instance;
-
-        #endregion
 
         private DataDbContext db;
 

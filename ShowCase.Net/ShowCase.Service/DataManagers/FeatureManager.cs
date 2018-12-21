@@ -14,22 +14,27 @@ namespace ShowCase.Service.DataManagers
 {
     public class FeatureManager
     {
-        #region Singleton
+        //#region Singleton
 
-        private static readonly FeatureManager instance = new FeatureManager(DataDbContext.CreateContext());
+        //private static readonly FeatureManager instance = new FeatureManager(DataDbContext.CreateContext());
 
-        static FeatureManager()
-        {
-        }
+        //static FeatureManager()
+        //{
+        //}
 
-        private FeatureManager(DataDbContext dbcontext)
+        //private FeatureManager(DataDbContext dbcontext)
+        //{
+        //    db = dbcontext;
+        //}
+
+        //public static FeatureManager Instance => instance;
+
+        //#endregion
+
+        public FeatureManager(DataDbContext dbcontext)
         {
             db = dbcontext;
         }
-
-        public static FeatureManager Instance => instance;
-
-        #endregion
 
         private DataDbContext db;
 

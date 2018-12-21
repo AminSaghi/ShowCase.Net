@@ -11,13 +11,20 @@ using ShowCase.Util.StaticClasses;
 namespace ShowCase.Api.Controllers
 {
     public class PagesController : BaseController
-    {        
+    {
+        public PagesController(PageManager pageManager)
+        {
+            PageManager = pageManager;
+        }
+
+        private PageManager PageManager { get; }
+
         #region CRUD
 
         [HttpGet]
         public async Task<IActionResult> GetPublishedPages()
         {
-            var getPagesResult = await PageManager.Instance.GetPagesAsync();
+            var getPagesResult = await PageManager.GetPagesAsync();
             if (getPagesResult.Success)
             {
                 return Ok(getPagesResult.ReturningValue.ToArray().Adapt<ListPagesApiModel[]>());
@@ -31,7 +38,7 @@ namespace ShowCase.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPublishedPage(int id)
         {
-            var getPageResult = await PageManager.Instance.GetPageAsync(id);
+            var getPageResult = await PageManager.GetPageAsync(id);
             if (getPageResult.Success)
             {
                 return Ok(getPageResult.ReturningValue.Adapt<PageApiModel>());
@@ -48,7 +55,7 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createPageResult = await PageManager.Instance.CreatePageAsync(model);
+                var createPageResult = await PageManager.CreatePageAsync(model);
                 if (createPageResult.Success)
                 {
                     return Ok(createPageResult.Message);
@@ -70,7 +77,7 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var updatePageResult = await PageManager.Instance.UpdatePageAsync(model);
+                var updatePageResult = await PageManager.UpdatePageAsync(model);
                 if (updatePageResult.Success)
                 {
                     return Ok(updatePageResult.Message);
@@ -90,7 +97,7 @@ namespace ShowCase.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePage(int id)
         {
-            var deletePageResult = await PageManager.Instance.DeletePageAsync(id);
+            var deletePageResult = await PageManager.DeletePageAsync(id);
             if (deletePageResult.Success)
             {
                 return Ok(deletePageResult.Message);

@@ -13,12 +13,19 @@ namespace ShowCase.Api.Controllers
 {
     public class FeaturesController : BaseController
     {
+        public FeaturesController(FeatureManager featureManager)
+        {
+            FeatureManager = featureManager;
+        }
+
+        private FeatureManager FeatureManager { get; }
+
         #region CRUD
 
         [HttpGet]
         public async Task<IActionResult> GetPublishedFeatures()
         {
-            var getFeaturesResult = await FeatureManager.Instance.GetFeaturesAsync();
+            var getFeaturesResult = await FeatureManager.GetFeaturesAsync();
             if (getFeaturesResult.Success)
             {
                 return Ok(getFeaturesResult.ReturningValue.ToArray().Adapt<ListFeaturesApiModel[]>());
@@ -32,7 +39,7 @@ namespace ShowCase.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPublishedFeature(int id)
         {
-            var getFeatureResult = await FeatureManager.Instance.GetFeatureAsync(id);
+            var getFeatureResult = await FeatureManager.GetFeatureAsync(id);
             if (getFeatureResult.Success)
             {
                 return Ok(getFeatureResult.ReturningValue.Adapt<FeatureApiModel>());
@@ -49,7 +56,7 @@ namespace ShowCase.Api.Controllers
         {            
             if (ModelState.IsValid)
             {
-                var createFeatureResult = await FeatureManager.Instance.CreateFeatureAsync(model);
+                var createFeatureResult = await FeatureManager.CreateFeatureAsync(model);
                 if (createFeatureResult.Success)
                 {
                     return Ok(createFeatureResult.Message);
@@ -71,7 +78,7 @@ namespace ShowCase.Api.Controllers
         {            
             if (ModelState.IsValid)
             {
-                var updateFeatureResult = await FeatureManager.Instance.UpdateFeatureAsync(model);
+                var updateFeatureResult = await FeatureManager.UpdateFeatureAsync(model);
                 if (updateFeatureResult.Success)
                 {
                     return Ok(updateFeatureResult.Message);
@@ -91,7 +98,7 @@ namespace ShowCase.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFeature(int id)
         {
-            var deleteFeatureResult = await FeatureManager.Instance.DeleteFeatureAsync(id);
+            var deleteFeatureResult = await FeatureManager.DeleteFeatureAsync(id);
             if (deleteFeatureResult.Success)
             {
                 return Ok(deleteFeatureResult.Message);
