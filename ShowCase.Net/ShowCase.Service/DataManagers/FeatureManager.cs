@@ -31,12 +31,14 @@ namespace ShowCase.Service.DataManagers
 
         //#endregion
 
-        public FeatureManager(DataDbContext dbcontext)
+        public FeatureManager(DataDbContext dbcontext, ProjectManager projectManager)
         {
             db = dbcontext;
+            ProjectManager = projectManager;
         }
 
         private DataDbContext db;
+        private ProjectManager ProjectManager { get; }
 
         #region CRUD
 
@@ -98,7 +100,7 @@ namespace ShowCase.Service.DataManagers
             try
             {
                 Project project = null;
-                var getProjectResult = await ProjectManager.Instance.GetProjectAsync(model.projectId, false);
+                var getProjectResult = await ProjectManager.GetProjectAsync(model.projectId, false);
                 if (getProjectResult.Success)
                 {
                     project = getProjectResult.ReturningValue;
@@ -183,7 +185,7 @@ namespace ShowCase.Service.DataManagers
                 {
                     var feature = getFeatureResult.ReturningValue;
 
-                    var getProjectResult = await ProjectManager.Instance.GetProjectAsync(model.projectId);
+                    var getProjectResult = await ProjectManager.GetProjectAsync(model.projectId);
                     if (getProjectResult.Success)
                     {
                         feature.Project = getProjectResult.ReturningValue;
