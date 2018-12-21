@@ -22,9 +22,11 @@ namespace ShowCase.Api.Controllers
         #region CRUD
 
         [HttpGet]
-        public async Task<IActionResult> GetPublishedPages()
+        public async Task<IActionResult> GetPages()
         {
-            var getPagesResult = await PageManager.GetPagesAsync();
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getPagesResult = await PageManager.GetPagesAsync(onlyPublished);
             if (getPagesResult.Success)
             {
                 return Ok(getPagesResult.ReturningValue.ToArray().Adapt<ListPagesApiModel[]>());
@@ -33,12 +35,14 @@ namespace ShowCase.Api.Controllers
             {
                 return StatusCode(500, getPagesResult.Message);
             }            
-        }
+        }        
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPublishedPage(int id)
+        public async Task<IActionResult> GetPage(int id)
         {
-            var getPageResult = await PageManager.GetPageAsync(id);
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getPageResult = await PageManager.GetPageAsync(id, onlyPublished);
             if (getPageResult.Success)
             {
                 return Ok(getPageResult.ReturningValue.Adapt<PageApiModel>());

@@ -21,9 +21,11 @@ namespace ShowCase.Api.Controllers
         #region CRUD
 
         [HttpGet]
-        public async Task<IActionResult> GetPublishedProjects()
+        public async Task<IActionResult> GetProjects()
         {
-            var getProjectsResult = await ProjectManager.GetProjectsAsync();
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getProjectsResult = await ProjectManager.GetProjectsAsync(onlyPublished);
             if (getProjectsResult.Success)
             {
                 return Ok(getProjectsResult.ReturningValue.ToArray().Adapt<ListProjectsApiModel[]>());
@@ -35,9 +37,11 @@ namespace ShowCase.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPublishedProject(int id)
+        public async Task<IActionResult> GetProject(int id)
         {
-            var getProjectResult = await ProjectManager.GetProjectAsync(id);
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getProjectResult = await ProjectManager.GetProjectAsync(id, onlyPublished);
             if (getProjectResult.Success)
             {
                 return Ok(getProjectResult.ReturningValue.Adapt<ProjectApiModel>());

@@ -23,9 +23,11 @@ namespace ShowCase.Api.Controllers
         #region CRUD
 
         [HttpGet]
-        public async Task<IActionResult> GetPublishedFeatures()
+        public async Task<IActionResult> GetFeatures()
         {
-            var getFeaturesResult = await FeatureManager.GetFeaturesAsync();
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getFeaturesResult = await FeatureManager.GetFeaturesAsync(onlyPublished);
             if (getFeaturesResult.Success)
             {
                 return Ok(getFeaturesResult.ReturningValue.ToArray().Adapt<ListFeaturesApiModel[]>());
@@ -37,9 +39,11 @@ namespace ShowCase.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPublishedFeature(int id)
+        public async Task<IActionResult> GetFeature(int id)
         {
-            var getFeatureResult = await FeatureManager.GetFeatureAsync(id);
+            var onlyPublished = !User.Identity.IsAuthenticated;
+
+            var getFeatureResult = await FeatureManager.GetFeatureAsync(id, onlyPublished);
             if (getFeatureResult.Success)
             {
                 return Ok(getFeatureResult.ReturningValue.Adapt<FeatureApiModel>());
