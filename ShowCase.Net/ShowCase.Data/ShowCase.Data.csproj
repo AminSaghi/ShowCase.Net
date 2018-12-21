@@ -17,4 +17,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\OperationResults\" />
+  </ItemGroup>
+
 </Project>
