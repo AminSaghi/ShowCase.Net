@@ -1,28 +1,17 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShowCase.Data.DbContexts;
-using ShowCase.Data.Models.ApiModels.Page;
-using ShowCase.Data.Models.Entities;
-using ShowCase.Service.DataManagers;
-using ShowCase.Util.StaticClasses;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using ShowCase.Data.Models.ApiModels.Page;
+using ShowCase.Service.DataManagers;
+using ShowCase.Util.StaticClasses;
 
 namespace ShowCase.Api.Controllers
 {
     public class PagesController : BaseController
-    {
-        DataDbContext db;
-
-        public PagesController(DataDbContext context)
-        {            
-            db = context;
-        }
-
+    {        
         #region CRUD
 
         [HttpGet]
