@@ -28,8 +28,10 @@ namespace ShowCase.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);
+            //services.AddDbContext<DataDbContext>(options =>
+            //    options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);            
+
+            services.AddDbContext<DataDbContext>(ServiceLifetime.Transient);
 
             services.AddMvc();
         }

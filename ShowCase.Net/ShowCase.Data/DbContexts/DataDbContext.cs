@@ -12,9 +12,20 @@ namespace ShowCase.Data.DbContexts
             : base(options)
         { }
 
+        #region DbSets
+
         public DbSet<Page> Pages { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Feature> Features { get; set; }
+
+        #endregion
+
+        public static DataDbContext CreateContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
+            
+            return new DataDbContext(optionsBuilder.Options);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
