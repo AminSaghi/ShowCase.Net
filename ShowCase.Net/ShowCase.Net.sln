@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCase.Api", "Api\ShowCase.Api.csproj", "{71CB67F2-1857-48FC-A4C9-F5DBAFB319C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCase.Api", "ShowCase.Api\ShowCase.Api.csproj", "{71CB67F2-1857-48FC-A4C9-F5DBAFB319C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCase.FrontEnd", "ShowCase.FrontEnd\ShowCase.FrontEnd.csproj", "{0E40197E-EFE3-40E1-9E2B-BAA2877DE86A}"
 EndProject
