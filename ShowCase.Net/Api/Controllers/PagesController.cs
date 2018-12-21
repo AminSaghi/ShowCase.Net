@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.Entities;
+using ShowCase.Service.DataManagers;
 using ShowCase.Util.StaticClasses;
 using System;
 using System.Collections.Generic;
@@ -27,43 +28,29 @@ namespace ShowCase.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPublishedPages()
         {
-            try
+            var getPagesResult = await PageManager.Instance.GetPagesAsync();
+            if (getPagesResult.Success)
             {
-                var pages = await db.Pages
-                    .Where(p => p.Published)
-                    .OrderBy(p => p.OrderIndex)
-                    .ThenBy(p => p.UpdateDateTime)
-                    .ToListAsync();
-                
-                return Ok(pages.ToArray().Adapt<ListPagesApiModel[]>());
+                return Ok(getPagesResult.ReturningValue.ToArray().Adapt<ListPagesApiModel[]>());
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, ex.Message);
-            }
+                return StatusCode(500, getPagesResult.Message);
+            }            
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPublishedPage(int id)
         {
-            try
+            var getPageResult = await PageManager.Instance.GetPageAsync(id);
+            if (getPageResult.Success)
             {
-                var page = await db.Pages
-                    .FirstOrDefaultAsync(p => p.Id == id && p.Published);
-
-                if (page != null)
-                {                    
-                    return Ok(page.Adapt<PageApiModel>());
-                }
-                else
-                {
-                    return NotFound(ReturningMessages.NotFound(page));
-                }
+                return Ok(getPageResult.ReturningValue.Adapt<PageApiModel>());
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, ex.Message);
-            }
+                return StatusCode(500, getPageResult.Message);
+            }            
         }
 
         [Authorize]
@@ -72,48 +59,15 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                var createPageResult = await PageManager.Instance.CreatePageAsync(model);
+                if (createPageResult.Success)
                 {
-                    Page parent = null;
-                    if (model.parentId > 0)
-                    {
-                        parent = await db.Pages
-                            .FirstOrDefaultAsync(p => p.Id == model.parentId);
-
-                        if (parent == null)
-                        {                            
-                            return BadRequest(ReturningMessages.InvalidDataSupplied());
-                        }
-                    }
-
-                    var orderIndex = await db.Pages.MaxAsync(p => p.OrderIndex);
-
-                    var now = DateTimeOffset.Now;
-
-                    var page = new Page
-                    {
-                        Parent = parent,
-
-                        OrderIndex = ++orderIndex,
-                        Title = model.title,
-                        Slug = model.slug,
-                        Content = model.content,
-
-                        CreateDateTime = now,
-                        UpdateDateTime = now,
-
-                        Published = false
-                    };
-
-                    db.Pages.Add(page);
-                    await db.SaveChangesAsync();
-                    
-                    return Ok(ReturningMessages.CreateSuccessful(page));
+                    return Ok(createPageResult.Message);
                 }
-                catch (Exception ex)
+                else
                 {
-                    return StatusCode(500, ex.Message);
-                }
+                    return StatusCode(createPageResult.StatusCode, createPageResult.Message);
+                }                
             }
             else
             {
@@ -127,48 +81,14 @@ namespace ShowCase.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                var updatePageResult = await PageManager.Instance.UpdatePageAsync(model);
+                if (updatePageResult.Success)
                 {
-                    var page = await db.Pages
-                        .Include(p => p.Parent)
-                        .FirstOrDefaultAsync(p => p.Id == model.id);
-
-                    if (page != null)
-                    {
-                        if (model.parentId > 0)
-                        {
-                            var parent = await db.Pages
-                                .FirstOrDefaultAsync(p => p.Id == model.parentId);
-
-                            if (parent != null)
-                            {
-                                page.Parent = parent;                                
-                            }
-                            else
-                            {                                
-                                return BadRequest(ReturningMessages.InvalidDataSupplied());
-                            }
-                        }
-                        page.OrderIndex = model.orderIndex;
-                        page.Title = model.title;
-                        page.Slug = model.slug;
-                        page.Content = model.content;
-                        page.UpdateDateTime = DateTimeOffset.Now;
-                        page.Published = model.published;
-
-                        db.Entry(page).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
-                        
-                        return Ok(ReturningMessages.UpdateSuccessful(page));
-                    }
-                    else
-                    {
-                        return NotFound(ReturningMessages.NotFound(page));
-                    }
+                    return Ok(updatePageResult.Message);
                 }
-                catch (Exception ex)
+                else
                 {
-                    return StatusCode(500, ex.Message);
+                    return StatusCode(updatePageResult.StatusCode, updatePageResult.Message);
                 }
             }
             else
@@ -181,26 +101,14 @@ namespace ShowCase.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePage(int id)
         {
-            try
+            var deletePageResult = await PageManager.Instance.DeletePageAsync(id);
+            if (deletePageResult.Success)
             {
-                var page = await db.Pages
-                    .FirstOrDefaultAsync(p => p.Id == id);
-
-                if (page != null)
-                {
-                    db.Pages.Remove(page);
-                    await db.SaveChangesAsync();
-
-                    return Ok(ReturningMessages.DeleteSuccessful(page));
-                }
-                else
-                {
-                    return NotFound(ReturningMessages.NotFound(page));
-                }
+                return Ok(deletePageResult.Message);
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode(deletePageResult.StatusCode, deletePageResult.Message);
             }
         }
 

@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShowCase.Data\ShowCase.Data.csproj" />
+    <ProjectReference Include="..\ShowCase.Util\ShowCase.Util.csproj" />
+  </ItemGroup>
+
 </Project>
