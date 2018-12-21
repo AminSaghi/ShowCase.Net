@@ -92,19 +92,26 @@ namespace ShowCase.Service.DataManagers
         {
             try
             {
-                var project = await db.Projects
-                        .FirstOrDefaultAsync(p => p.Id == model.projectId);
-
-                if (project == null)
+                Project project = null;
+                var getProjectResult = await ProjectManager.Instance.GetProjectAsync(model.projectId, false);
+                if (getProjectResult.Success)
                 {
-                    return BadRequest(ReturningMessages.InvalidDataSupplied());
+                    project = getProjectResult.ReturningValue;
+                }
+                else
+                {
+                    return new CrudOperationResult<Feature>
+                    {
+                        Success = false,
+                        StatusCode = getProjectResult.StatusCode,
+                        Message = getProjectResult.Message
+                    };
                 }
 
                 Feature parent = null;
                 if (model.parentId > 0)
                 {
                     var getParentResult = await GetFeatureAsync(model.parentId, false);
-
                     if (getParentResult.Success)
                     {
                         parent = getParentResult.ReturningValue;
@@ -171,15 +178,19 @@ namespace ShowCase.Service.DataManagers
                 {
                     var feature = getFeatureResult.ReturningValue;
 
-                    var project = await db.Projects
-                            .FirstOrDefaultAsync(p => p.Id == model.projectId);
-                    if (project != null)
+                    var getProjectResult = await ProjectManager.Instance.GetProjectAsync(model.projectId);
+                    if (getProjectResult.Success)
                     {
-                        feature.Project = project;
+                        feature.Project = getProjectResult.ReturningValue;
                     }
                     else
                     {
-                        return BadRequest(ReturningMessages.InvalidDataSupplied());
+                        return new CrudOperationResult<Feature>
+                        {
+                            Success = false,
+                            StatusCode = getProjectResult.StatusCode,
+                            Message = getProjectResult.Message
+                        };
                     }
 
                     if (model.parentId > 0)
