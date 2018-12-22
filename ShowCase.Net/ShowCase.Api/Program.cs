@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ShowCase.Data.DataSeeders;
 using ShowCase.Data.DbContexts;
 
 namespace ShowCase.Api
@@ -34,9 +36,11 @@ namespace ShowCase.Api
             using (var scope = serviceScopeFactory.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var pdb = services.GetRequiredService<DataDbContext>();                
+                var pdb = services.GetRequiredService<DataDbContext>();   
+                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
-                pdb.Database.Migrate();            
+                pdb.Database.Migrate();
+                UserSeeder.SeedAdmin(userManager);
             }
 
             return webHost;

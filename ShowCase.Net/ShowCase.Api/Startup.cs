@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Mapster;
+﻿using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
@@ -43,14 +38,17 @@ namespace ShowCase.Api
             services.AddMvc();
 
             services.AddIdentity<IdentityUser, IdentityRole>(
-                opts =>
+                options =>
                 {
-                    opts.Password.RequireDigit = true;
-                    opts.Password.RequireLowercase = true;
-                    opts.Password.RequireUppercase = true;
-                    opts.Password.RequireNonAlphanumeric = false;
-                    opts.Password.RequiredLength = 7;
+                    options.User.RequireUniqueEmail = false;
+
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = 7;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>();
         }
 
@@ -63,6 +61,7 @@ namespace ShowCase.Api
             }
 
             app.UseMvc();
+            app.UseAuthentication();            
 
             MapsterConfig();
         }
