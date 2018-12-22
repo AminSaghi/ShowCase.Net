@@ -38,6 +38,7 @@ namespace ShowCase.Data.DbContexts
 
             modelBuilder.Entity<Page>().ToTable("Pages");
             modelBuilder.Entity<Page>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Page>().HasOne(i => i.Parent).WithMany(u => u.Children).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Page>().HasMany(u => u.Children).WithOne(i => i.Parent);
 
             modelBuilder.Entity<Project>().ToTable("Projects");
@@ -46,8 +47,8 @@ namespace ShowCase.Data.DbContexts
 
             modelBuilder.Entity<Feature>().ToTable("Features");
             modelBuilder.Entity<Feature>().Property(i => i.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Feature>().HasOne(i => i.Project).WithMany(u => u.Features);
-            modelBuilder.Entity<Feature>().HasOne(i => i.Parent).WithMany(u => u.Children);
+            modelBuilder.Entity<Feature>().HasOne(i => i.Project).WithMany(u => u.Features).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Feature>().HasOne(i => i.Parent).WithMany(u => u.Children).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Feature>().HasMany(u => u.Children).WithOne(i => i.Parent);
         }
     }
