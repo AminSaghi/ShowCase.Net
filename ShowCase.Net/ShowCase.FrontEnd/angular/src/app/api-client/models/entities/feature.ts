@@ -10,4 +10,5 @@ export class Feature extends Content {
 
     project: Project;
     parent: Feature;
+    children: Feature[];
 }
