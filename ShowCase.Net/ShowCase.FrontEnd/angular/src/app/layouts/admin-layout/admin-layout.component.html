@@ -1,14 +1,27 @@
 <div class="layout">
   <div class="top-menu">
-    <div class="logo">
-      <img />
-    </div>
-    <div class="pages-menu">
-
-    </div>
+   
   </div>
   <div class="side-bar">
-
+    <ul>
+      <li>
+        <a routerLink="pages">Pages</a>        
+      </li>
+      <li>
+        <a routerLink="projects">Projects</a>
+      </li>
+      <li><hr/></li>
+      <li>
+        <a routerLink="users">Users</a>
+      </li>
+      <li><hr/></li>
+      <li>
+        <a routerLink="account">Account</a>
+      </li>
+      <li>
+        <a (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
   <div class="container">
     <router-outlet></router-outlet>
