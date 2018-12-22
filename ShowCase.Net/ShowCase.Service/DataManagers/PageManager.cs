@@ -112,7 +112,7 @@ namespace ShowCase.Service.DataManagers
                         {
                             Success = false,
                             StatusCode = 400,
-                            Message = ReturningMessages.InvalidDataSupplied()
+                            Message = ReturningMessages.InvalidDataSupplied
                         };
                     }
                 }
@@ -180,7 +180,7 @@ namespace ShowCase.Service.DataManagers
                             {
                                 Success = false,
                                 StatusCode = 400,
-                                Message = ReturningMessages.InvalidDataSupplied()
+                                Message = ReturningMessages.InvalidDataSupplied
                             };                          
                         }
                     }
