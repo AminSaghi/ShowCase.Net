@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShowCase.Data.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace ShowCase.Data.DbContexts
 {
-    public class DataDbContext : DbContext
+    public class DataDbContext : IdentityDbContext<IdentityUser>
     {
         public DataDbContext(DbContextOptions<DataDbContext> options)
             : base(options)

@@ -6,6 +6,8 @@ using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +41,17 @@ namespace ShowCase.Api
             services.AddScoped<FeatureManager>();
 
             services.AddMvc();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                opts =>
+                {
+                    opts.Password.RequireDigit = true;
+                    opts.Password.RequireLowercase = true;
+                    opts.Password.RequireUppercase = true;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequiredLength = 7;
+                })
+                .AddEntityFrameworkStores<IdentityDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +80,8 @@ namespace ShowCase.Api
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
-                .Map(dest => dest.updateDateTime, 
-                    src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm")) 
+                .Map(dest => dest.updateDateTime,
+                    src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm"))
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.children, src => src.Children);
 
@@ -97,7 +110,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
                 .Map(dest => dest.imageUrl, src => src.ImageUrl)
-                .Map(dest => dest.published, src => src.Published);                
+                .Map(dest => dest.published, src => src.Published);
 
             TypeAdapterConfig<Project, ProjectApiModel>
                 .ForType()
@@ -105,7 +118,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
-                .Map(dest => dest.imageUrl, src => src.ImageUrl)               
+                .Map(dest => dest.imageUrl, src => src.ImageUrl)
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.features, src => src.Features);
 
