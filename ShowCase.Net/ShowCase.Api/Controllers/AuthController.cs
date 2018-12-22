@@ -34,13 +34,19 @@ namespace ShowCase.Api.Controllers
                 var validCredentials = await CheckCredentials(model.UserName, model.Password);
                 if (validCredentials)
                 {
+                    var now = DateTime.Now;
+
                     var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecuritySettings.JwtSecret));
                     var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
                     var userClaims = new Claim[]
                     {
-                    new Claim(JwtRegisteredClaimNames.UniqueName, model.UserName.ToLower())
+                        new Claim(JwtRegisteredClaimNames.UniqueName, model.UserName.ToLower())                      
                     };
-                    var jwtToken = new JwtSecurityToken(claims: userClaims, signingCredentials: signingCredentials);
+                    var jwtToken = new JwtSecurityToken(
+                        claims: userClaims, 
+                        notBefore: now,
+                        expires: now.AddMinutes(SecuritySettings.JwtTokenExpireMins),
+                        signingCredentials: signingCredentials);
                     var jwtTokenHandler = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
                     return Ok(new { token = jwtTokenHandler });
@@ -62,7 +68,7 @@ namespace ShowCase.Api.Controllers
             {
                 return await Task.FromResult(false);
             }
-                
+
             /* 
              * get UserIdentity to verifty. 
              */
@@ -82,7 +88,7 @@ namespace ShowCase.Api.Controllers
             else
             {
                 return await Task.FromResult(false);
-            }                        
+            }
         }
     }
 }
