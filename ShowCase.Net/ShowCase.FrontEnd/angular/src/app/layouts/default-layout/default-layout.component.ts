@@ -21,12 +21,6 @@ export class DefaultLayoutComponent implements OnInit {
     private projectService: ProjectService) { }
 
   ngOnInit() {
-    const that = this;
-
-    this.projectService.getProjects().subscribe(result => {
-      this.projects = result;
-    });
-
     forkJoin(
       this.pageService.getPages(),
       this.projectService.getProjects()).subscribe(results => {

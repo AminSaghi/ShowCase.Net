@@ -6,21 +6,13 @@ namespace ShowCase.Util.StaticClasses
 {
     public static class ReturningMessages
     {
-        #region HTTP 4xx
+        #region Auth
 
-        public static string NotFound(object entity)
-        {
-            return $"{GetTypeName(entity)} NOT found.";
-        }
-
-        public static string InvalidDataSupplied()
-        {
-            return "Invalid data supplied.";
-        }
+        public static string InvalidUserNameOrPassword => "Invalid username or password.";
 
         #endregion
 
-        #region HTTP 2xx
+        #region CUD
 
         public static string CreateSuccessful(object entity)
         {
@@ -34,6 +26,17 @@ namespace ShowCase.Util.StaticClasses
         {
             return CudSuccessful("deleted", entity);
         }
+
+        #endregion        
+
+        #region Errors
+
+        public static string InvalidDataSupplied => "Invalid data supplied.";
+
+        public static string NotFound(object entity)
+        {
+            return $"{GetTypeName(entity)} NOT found.";
+        }                
 
         #endregion
 

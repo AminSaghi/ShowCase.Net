@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
 import { ProjectService } from 'src/app/api-client';
-import { Project } from 'src/app/api-client/models';
+import { Project, Page } from 'src/app/api-client/models';
 
 @Component({
   selector: 'app-admin-layout',
@@ -13,16 +13,17 @@ import { Project } from 'src/app/api-client/models';
 export class AdminLayoutComponent implements OnInit {
 
   public projects: Project[];
+  public pages: Page[];
 
   constructor(
     private projectService: ProjectService) { }
 
   ngOnInit() {
-    const that = this;
-
-    this.projectService.getProjects().subscribe(result => {
-      this.projects = result;
-    });
+    // forkJoin(
+    //   this.pageService.getPages(),
+    //   this.projectService.getProjects()).subscribe(results => {
+    //     this.pages = results[0];
+    //     this.projects = results[1];
+    //   });
   }
-
 }

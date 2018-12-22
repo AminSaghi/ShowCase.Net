@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShowCase.Data.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShowCase.Data.DbContexts
 {
-    public class DataDbContext : DbContext
+    public class DataDbContext : IdentityDbContext<IdentityUser>
     {
         public DataDbContext(DbContextOptions<DataDbContext> options)
             : base(options)
@@ -20,13 +23,6 @@ namespace ShowCase.Data.DbContexts
 
         #endregion
 
-        public static DataDbContext CreateContext()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<DataDbContext>();
-            
-            return new DataDbContext(optionsBuilder.Options);
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=Data.db");
@@ -34,10 +30,13 @@ namespace ShowCase.Data.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);       
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToLower() });
 
             modelBuilder.Entity<Page>().ToTable("Pages");
             modelBuilder.Entity<Page>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Page>().HasOne(i => i.Parent).WithMany(u => u.Children).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Page>().HasMany(u => u.Children).WithOne(i => i.Parent);
 
             modelBuilder.Entity<Project>().ToTable("Projects");
@@ -46,9 +45,9 @@ namespace ShowCase.Data.DbContexts
 
             modelBuilder.Entity<Feature>().ToTable("Features");
             modelBuilder.Entity<Feature>().Property(i => i.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Feature>().HasOne(i => i.Project).WithMany(u => u.Features);
-            modelBuilder.Entity<Feature>().HasOne(i => i.Parent).WithMany(u => u.Children);
+            modelBuilder.Entity<Feature>().HasOne(i => i.Project).WithMany(u => u.Features).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Feature>().HasOne(i => i.Parent).WithMany(u => u.Children).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Feature>().HasMany(u => u.Children).WithOne(i => i.Parent);
-        }
+        }        
     }
 }

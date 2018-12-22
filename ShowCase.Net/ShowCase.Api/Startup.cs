@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Mapster;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
 using ShowCase.Data.Models.Entities;
 using ShowCase.Service.DataManagers;
+using ShowCase.Util.StaticClasses;
+using System;
+using System.Text;
 
 namespace ShowCase.Api
 {
@@ -39,6 +40,48 @@ namespace ShowCase.Api
             services.AddScoped<FeatureManager>();
 
             services.AddMvc();
+
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                options =>
+                {
+                    options.User.RequireUniqueEmail = false;
+
+                    options.Password.RequireDigit = true;
+                    options.Password.RequireLowercase = true;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = 7;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDbContext>();
+
+            // Add Authentication with JWT Tokens
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    // standard configuration
+                    ValidIssuer = SecuritySettings.JwtIssuer,
+                    ValidAudience = SecuritySettings.JwtAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecuritySettings.JwtSecret)),
+                    ClockSkew = TimeSpan.Zero,
+
+                    // security switches
+                    RequireExpirationTime = true,
+                    ValidateIssuer = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +93,7 @@ namespace ShowCase.Api
             }
 
             app.UseMvc();
+            app.UseAuthentication();
 
             MapsterConfig();
         }
@@ -67,8 +111,8 @@ namespace ShowCase.Api
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
-                .Map(dest => dest.updateDateTime, 
-                    src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm")) 
+                .Map(dest => dest.updateDateTime,
+                    src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm"))
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.children, src => src.Children);
 
@@ -97,7 +141,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
                 .Map(dest => dest.imageUrl, src => src.ImageUrl)
-                .Map(dest => dest.published, src => src.Published);                
+                .Map(dest => dest.published, src => src.Published);
 
             TypeAdapterConfig<Project, ProjectApiModel>
                 .ForType()
@@ -105,7 +149,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
-                .Map(dest => dest.imageUrl, src => src.ImageUrl)               
+                .Map(dest => dest.imageUrl, src => src.ImageUrl)
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.features, src => src.Features);
 
