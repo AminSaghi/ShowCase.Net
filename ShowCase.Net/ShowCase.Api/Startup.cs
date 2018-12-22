@@ -1,17 +1,21 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.IdentityModel.Tokens;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
 using ShowCase.Data.Models.Entities;
 using ShowCase.Service.DataManagers;
+using ShowCase.Util.StaticClasses;
+using System;
+using System.Text;
 
 namespace ShowCase.Api
 {
@@ -50,6 +54,34 @@ namespace ShowCase.Api
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>();
+
+            // Add Authentication with JWT Tokens
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    // standard configuration
+                    ValidIssuer = SecuritySettings.JwtIssuer,
+                    ValidAudience = SecuritySettings.JwtAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecuritySettings.JwtSecret)),
+                    ClockSkew = TimeSpan.Zero,
+
+                    // security switches
+                    RequireExpirationTime = true,
+                    ValidateIssuer = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +93,7 @@ namespace ShowCase.Api
             }
 
             app.UseMvc();
-            app.UseAuthentication();            
+            app.UseAuthentication();
 
             MapsterConfig();
         }

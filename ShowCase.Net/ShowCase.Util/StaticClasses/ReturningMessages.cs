@@ -35,6 +35,12 @@ namespace ShowCase.Util.StaticClasses
             return CudSuccessful("deleted", entity);
         }
 
+        #endregion        
+
+        #region Auth
+
+        public static string InvalidUserNameOrPassword => "Invalid username or password.";
+
         #endregion
 
         #region Private Methods
