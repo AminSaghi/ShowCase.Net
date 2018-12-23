@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { AdminLayoutComponent, DefaultLayoutComponent } from './layouts';
-
-import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './api-client/auth/auth-guard.service';
+import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -78,6 +78,13 @@ export const routes: Routes = [
         component: LoginComponent,
         data: {
             title: 'Login Page'
+        }
+    },
+    {
+        path: '**',
+        component: NotFoundComponent,
+        data: {
+            title: 'Not Found!'
         }
     },
 ];
