@@ -13,6 +13,12 @@ import { CreateEditPageComponent } from './create-edit-page/create-edit-page.com
 @NgModule({
   imports: [
     CommonModule,
+
+    InputTextModule,
+    SpinnerModule,
+    ToggleButtonModule,
+    EditorModule,
+
     PageRoutingModule
   ],
   declarations: [ListPagesComponent, CreateEditPageComponent]
