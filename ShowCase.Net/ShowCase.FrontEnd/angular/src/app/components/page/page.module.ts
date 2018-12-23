@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { SpinnerModule } from 'primeng/spinner';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -14,6 +18,10 @@ import { CreateEditPageComponent } from './create-edit-page/create-edit-page.com
   imports: [
     CommonModule,
 
+    ConfirmDialogModule,
+    TreeTableModule,
+    ButtonModule,
+    DropdownModule,
     InputTextModule,
     SpinnerModule,
     ToggleButtonModule,
