@@ -1,3 +1,72 @@
-<p>
-  create-edit-feature works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <strong>{{cardHeaderText}}</strong>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="featureForm" class="form-horizontal">
+      <div class="p-grid">
+        <!-- Project -->
+        <div class="p-col-12">
+          <label for="project">Project</label>
+        </div>
+        <div class="p-col-12">
+          <p-dropdown [options]="projects" optionLabel="title" dataKey="id" formControlName="project" showClear="true"
+            emptyFilterMessage="Nothing found." [filter]="true" placeholder="- Select -" autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+        <!-- Parent -->
+        <div class="p-col-12">
+          <label for="parent">Parent</label>
+        </div>
+        <div class="p-col-12">
+          <p-dropdown [options]="features" optionLabel="title" dataKey="id" formControlName="parent" showClear="true"
+            emptyFilterMessage="Nothing found." [filter]="true" placeholder="- Select -" autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+        </div>
+        <!-- Title -->
+        <div class="p-col-12">
+          <label for="title">Title</label>
+        </div>
+        <div class="p-col-12">
+          <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('name')}" class="required" />
+        </div>
+        <!-- Slug -->
+        <div class="p-col-12">
+          <label for="slug">Slug</label>
+        </div>
+        <div class="p-col-12">
+          <input pInputText type="text" formControlName="slug" [ngClass]="{'error': isInvalid('slug')}" class="required" />
+        </div>
+        <!-- OrderIndex -->
+        <div class="p-col-3" *ngIf="editMode">
+          <label for="orderIndex">Order Index</label>
+        </div>
+        <div class="p-col-3" *ngIf="editMode">
+          <p-spinner formControlName="orderIndex" [min]="0" [max]="100"></p-spinner>
+        </div>
+        <!-- Published -->
+        <div class="p-col-3" *ngIf="editMode">
+          <label for="published">Published</label>
+        </div>
+        <div class="p-col-3" *ngIf="editMode">
+          <p-toggleButton formControlName="published"></p-toggleButton>
+        </div>
+        <!-- Content -->
+        <div class="p-col-12">
+          <label for="slug">Content</label>
+        </div>
+        <div class="p-col-12">
+          <p-editor formControlName="content" [style]="{'height':'500px'}"></p-editor>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <button pButton (click)="createProject()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!projectForm.valid"
+      class="btn btn-success" icon="{{commandButtonIcon}}">
+      {{commandButtonText}}
+    </button>
+    &nbsp;
+    <button pButton (click)="goBack()" class="ui-bottun-primary ui-boutton-raised" icon="pi pi-chevron-left">
+      Return to list
+    </button>
+  </div>
+</div>
