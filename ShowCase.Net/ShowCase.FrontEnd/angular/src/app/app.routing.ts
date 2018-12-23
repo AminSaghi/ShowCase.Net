@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent, DefaultLayoutComponent } from './layouts';
 
 import { LoginComponent } from './components/login/login.component';
+import { AuthGuardService } from './api-client/auth/auth-guard.service';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminLayoutComponent,
+        canActivate: [AuthGuardService],
         data: {
             title: 'Admin'
         },
