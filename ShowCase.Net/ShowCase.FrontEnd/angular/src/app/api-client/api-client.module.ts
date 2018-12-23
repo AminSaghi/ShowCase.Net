@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Urls } from './urls';
 
 import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
 import { UserService } from './user/user.service';
@@ -15,7 +16,6 @@ import { SettingsService } from './settings/settings.service';
 
 @NgModule({
     imports: [
-        // BrowserAnimationsModule,
         HttpClientModule
     ],
     declarations: [
@@ -36,6 +36,7 @@ export class ApiClientModule {
                     multi: true
                 },
                 AuthService,
+                AuthGuardService,
                 UserService,
                 ProjectService,
                 FeatureService,

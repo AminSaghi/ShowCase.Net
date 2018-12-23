@@ -3,10 +3,29 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { AdminLayoutComponent, DefaultLayoutComponent } from './layouts';
-
+import { AuthGuardService } from './api-client/auth/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
+    {
+        path: '',
+        component: DefaultLayoutComponent,
+        data: {
+            title: 'Home'
+        },
+        children: [
+            {
+                path: 'home',
+                loadChildren: './components/home/home.module#HomeModule'
+            }
+        ]
+    },
     {
         path: 'admin',
         redirectTo: 'dashboard',
@@ -15,8 +34,9 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminLayoutComponent,
+        canActivate: [AuthGuardService],
         data: {
-            title: 'Home'
+            title: 'Admin'
         },
         children: [
             {
@@ -58,6 +78,13 @@ export const routes: Routes = [
         component: LoginComponent,
         data: {
             title: 'Login Page'
+        }
+    },
+    {
+        path: '**',
+        component: NotFoundComponent,
+        data: {
+            title: 'Not Found!'
         }
     },
 ];
