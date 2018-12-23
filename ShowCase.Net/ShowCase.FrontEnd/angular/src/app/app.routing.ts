@@ -8,6 +8,24 @@ import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+    },
+    {
+        path: '',
+        component: DefaultLayoutComponent,
+        data: {
+            title: 'Home'
+        },
+        children: [
+            {
+                path: 'home',
+                loadChildren: './components/home/home.module#HomeModule'
+            }
+        ]
+    },
+    {
         path: 'admin',
         redirectTo: 'dashboard',
         pathMatch: 'full',
@@ -16,7 +34,7 @@ export const routes: Routes = [
         path: 'admin',
         component: AdminLayoutComponent,
         data: {
-            title: 'Home'
+            title: 'Admin'
         },
         children: [
             {
