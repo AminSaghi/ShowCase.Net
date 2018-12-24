@@ -1,3 +1,64 @@
-<p>
-  create-edit-project works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <strong>{{cardHeaderText}}</strong>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="projectForm" class="form-horizontal">
+      <div class="p-grid nested-grid">
+        <div class="p-col-6">
+          <div class="p-grid">
+            <!-- Title -->
+            <div class="p-col-4">
+              <label for="title">Title</label>
+            </div>
+            <div class="p-col-8">
+              <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('name')}" class="required" />
+            </div>
+            <!-- Slug -->
+            <div class="p-col-4">
+              <label for="slug">Slug</label>
+            </div>
+            <div class="p-col-8">
+              <input pInputText type="text" formControlName="slug" [ngClass]="{'error': isInvalid('slug')}" class="required" />
+            </div>
+          </div>
+        </div>
+        <div class="p-col-6">
+          <div class="p-grid">
+            <!-- Description -->
+            <div class="p-col-4">
+              <label for="slug">Description</label>
+            </div>
+            <div class="p-col-8">
+              <textarea pInputTextarea formControlName="description" [rows]="5" autoResize="autoResize"></p-editor>
+            </div>
+          </div>
+        </div>
+        <!-- OrderIndex -->
+        <div class="p-col-3" *ngIf="editMode">
+          <label for="orderIndex">Order Index</label>
+        </div>
+        <div class="p-col-3" *ngIf="editMode">
+          <p-spinner formControlName="orderIndex" [min]="0" [max]="100"></p-spinner>
+        </div>
+        <!-- Published -->
+        <div class="p-col-3" *ngIf="editMode">
+          <label for="published">Published</label>
+        </div>
+        <div class="p-col-3" *ngIf="editMode">
+          <p-toggleButton formControlName="published"></p-toggleButton>
+        </div>        
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <button pButton (click)="createProject()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!projectForm.valid"
+      class="btn btn-success" icon="{{commandButtonIcon}}">
+      {{commandButtonText}}
+    </button>
+    &nbsp;
+    <button pButton (click)="goBack()" class="ui-bottun-primary ui-boutton-raised" icon="pi pi-chevron-left">
+      Return to list
+    </button>
+  </div>
+</div>
