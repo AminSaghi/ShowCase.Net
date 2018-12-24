@@ -1,3 +1,53 @@
-<p>
-  list-projects works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i> List of Projects
+  </div>
+  <div class="card-body">
+    <a routerLink="ce" class="btn btn-primary">Create new Project</a>
+    <br />
+    <br />
+    <p-table [value]="projects" [paginator]="true" [rows]="10" [rowHover]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Title</th>          
+          <th>Slug</th>
+          <th>Order</th>
+          <th>Published</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+          <td>
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            {{rowData.title}}
+          </td>
+          <td>{{rowData.slug}}</td>
+          <td>{{rowData.orderIndex}}</td>          
+          <td>{{rowData.published}}</td>
+          <td>
+            <button pButton routerLink="ce/{{rowData.id}}" type="button" class="ui-button-warning ui-button-rounded ui-button-raised"
+              icon="pi pi-pencil"></button>
+            &nbsp;
+            <button pButton (click)="confirmDelete(rowData.id)" type="button" class="ui-button-danger ui-button-rounded ui-button-raised"
+              icon="pi pi-times"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="5" style="text-align: center">
+            No records found.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-confirmDialog #cd header="Are you sure?!" icon="pi pi-exclamation-triangle">
+  <p-footer>
+    <button pButton (click)="cd.reject()" label="No" type="button" class="ui-button-primary ui-button-raised" icon="pi pi-times"></button>
+    <button pButton (click)="cd.accept()" label="Yes" type="button" class="ui-button-danger ui-button-raised" icon="pi pi-check"></button>
+  </p-footer>
+</p-confirmDialog>

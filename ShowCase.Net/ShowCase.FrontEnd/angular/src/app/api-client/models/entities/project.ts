@@ -2,9 +2,12 @@ import { Feature } from './feature';
 
 export class Project {
     id: number;
-    name: string;
+    orderIndex: number;
+    title: string;
+    slug: string;
     description: string;
     imageUrl: string;
+    published: boolean;
 
     features: Feature[];
 }
