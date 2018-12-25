@@ -6,6 +6,8 @@ import { MenuItem } from 'primeng/api';
 import { PageService, ProjectService } from 'src/app/api-client';
 import { Page, Project } from 'src/app/api-client/models';
 
+import { Helpers } from 'src/app/shared/helpers';
+
 @Component({
   selector: 'app-default-layout',
   templateUrl: './default-layout.component.html',
@@ -13,8 +15,11 @@ import { Page, Project } from 'src/app/api-client/models';
 })
 export class DefaultLayoutComponent implements OnInit {
 
-  public pages: Page[];
-  public projects: Project[];
+  pages: Page[];
+  projects: Project[];
+
+  public pageMenuItems: MenuItem[];
+  public projectMenuItems: MenuItem[];
 
   constructor(
     private pageService: PageService,
@@ -26,7 +31,9 @@ export class DefaultLayoutComponent implements OnInit {
       this.projectService.getProjects()).subscribe(results => {
         this.pages = results[0];
         this.projects = results[1];
+
+        this.pageMenuItems = Helpers.createMenuItemsOf(this.pages, 'page');
+        this.projectMenuItems = Helpers.createMenuItemsOfProjects(this.projects);
       });
   }
-
 }
