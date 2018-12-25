@@ -5,6 +5,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ToastModule } from 'primeng/toast';
+import { MenubarModule } from 'primeng/menubar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 import { AppRoutingModule } from './app.routing';
 import { ApiClientModule } from './api-client';
@@ -28,6 +30,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     BrowserAnimationsModule,
 
     ToastModule,
+    MenubarModule,
+    PanelMenuModule,
 
     AppRoutingModule,
     ApiClientModule.forRoot()

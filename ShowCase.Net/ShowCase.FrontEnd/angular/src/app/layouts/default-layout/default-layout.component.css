@@ -1,0 +1,7 @@
+:host div.top-menu div.logo {
+    float: left;
+}
+
+:host div.top-menu div.pages-menu {
+  float: right;
+}
