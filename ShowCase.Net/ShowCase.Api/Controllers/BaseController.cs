@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShowCase.Api.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace ShowCase.Api.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    // [PreventCsrfAngular]
+    [GenerateApiAntiForgeryToken]
     public class BaseController : Controller
     {
     }
