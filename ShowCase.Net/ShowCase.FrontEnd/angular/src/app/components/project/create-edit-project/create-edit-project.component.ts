@@ -21,6 +21,7 @@ export class CreateEditProjectComponent implements OnInit {
   projectForm;
   projects: Project[];
   projectModel: Project;
+  public images: string[];
 
   constructor(private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -50,6 +51,8 @@ export class CreateEditProjectComponent implements OnInit {
           this.projectForm.controls['slug'].setValue(project.slug);
           this.projectForm.controls['description'].setValue(project.description);
           this.projectForm.controls['published'].setValue(project.published);
+
+          this.images.push(project.imageUrl);
 
           this.editMode = true;
           this.cardHeaderText = 'Edit Project';
@@ -85,6 +88,23 @@ export class CreateEditProjectComponent implements OnInit {
         control.markAsTouched({ onlySelf: true });
       });
     }
+  }
+
+  getBase64Image(event) {
+    const that = this;
+
+    const imageFile = event.files[0];
+    const fileReader = new FileReader();
+    fileReader.onload = function (e: any) {
+      const contents = e.target.result;
+      that.projectForm.controls['imageUrl'].setValue(contents);
+    };
+
+    fileReader.readAsDataURL(imageFile);
+  }
+
+  clearImageUrl(event) {
+    this.projectForm.controls['imageUrl'].setValue(null);
   }
 
   isInvalid(controlName) {

@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { FileUploadModule } from 'primeng/fileupload';
 import { SpinnerModule } from 'primeng/spinner';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { EditorModule } from 'primeng/editor';
@@ -23,6 +24,7 @@ import { CreateEditProjectComponent } from './create-edit-project/create-edit-pr
     ButtonModule,
     DropdownModule,
     InputTextModule,
+    FileUploadModule,
     SpinnerModule,
     ToggleButtonModule,
     EditorModule,

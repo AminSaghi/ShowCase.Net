@@ -34,6 +34,19 @@
             </div>
           </div>
         </div>
+        <!-- Image -->
+        <div class="p-col-2">
+          <label for="image">Image</label>
+        </div>
+        <div class="p-col-10">
+          <p-fileUpload files="images[]" accept="image/*" auto="true" customUpload="true"
+            (uploadHandler)="getBase64Image($event)"
+            (onClear)="clearImageUrl()"
+            (onRemove)="clearImageUrl($event)"
+            maxFileSize="500000"
+            showUploadButton="false"
+            previewWidth="100"></p-fileUpload>
+        </div>
         <!-- OrderIndex -->
         <div class="p-col-3" *ngIf="editMode">
           <label for="orderIndex">Order Index</label>
