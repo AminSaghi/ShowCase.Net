@@ -149,7 +149,6 @@ namespace ShowCase.Api
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
                 .Map(dest => dest.title, src => src.Title)
                 .Map(dest => dest.slug, src => src.Slug)
-                .Map(dest => dest.imageUrl, src => src.ImageUrl)
                 .Map(dest => dest.published, src => src.Published);
 
             TypeAdapterConfig<Project, ProjectApiModel>
@@ -178,7 +177,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.project, src => src.Project)
                 .Map(dest => dest.children, src => src.Children);
 
-            TypeAdapterConfig<Feature, FeatureApiModel>
+            TypeAdapterConfig<Feature, ListFeatureApiModel>
                 .ForType()
                 .Map(dest => dest.id, src => src.Id)
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
