@@ -40,12 +40,55 @@ namespace ShowCase.Service.DataManagers
 
         #region CRUD
 
-        public async Task<CrudOperationResult<List<Project>>> GetProjectsAsync(bool onlyPublished = true)
+        public async Task<CrudOperationResult<List<Project>>> GetProjectsAsync(bool onlyPublished = true, bool withImage = false, bool withFeatures = false)
         {
             try
             {
-                var projects = await db.Projects
-                    .Where(p => p.Published == onlyPublished)
+                var query = db.Projects
+                    .Where(p => p.Published == onlyPublished);
+
+                if (withFeatures)
+                {
+                    query.Include(p => p.Features);
+                }
+
+                if (withImage)
+                {
+                    query.Select(p => new Project 
+                    { 
+                        Id = p.Id,
+                        OrderIndex = p.OrderIndex,
+                        Title = p.Title,
+                        Slug = p.Slug,
+                        Description = p.Description,
+                        Published = p.Published,
+                        ImageUrl = p.ImageUrl,
+                        Features = withFeatures ? 
+                            p.Features
+                                .Where(f => f.Published == onlyPublished)
+                                .OrderBy(f => f.OrderIndex)
+                            : null
+                    });
+                }
+                else
+                {
+                    query.Select(p => new Project
+                    {
+                        Id = p.Id,
+                        OrderIndex = p.OrderIndex,
+                        Title = p.Title,
+                        Slug = p.Slug,
+                        Description = p.Description,
+                        Published = p.Published,              
+                        Features = withFeatures ?
+                            p.Features
+                                .Where(f => f.Published == onlyPublished)
+                                .OrderBy(f => f.OrderIndex)
+                            : null
+                    });
+                }
+
+                var projects = await query
                     .OrderBy(p => p.OrderIndex)           
                     .ToListAsync();
 

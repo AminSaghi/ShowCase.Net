@@ -13,8 +13,9 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
-  getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(Urls.PROJECTS);
+  getProjects(withImage = false, withFeatures = false): Observable<Project[]> {
+    const url = `${Urls.PROJECTS}?${withImage ? 'image=1&' : ''}${withFeatures ? 'features=1' : ''}`;
+    return this.http.get<Project[]>(url);
   }
 
   getProject(id: number): Observable<Project> {
