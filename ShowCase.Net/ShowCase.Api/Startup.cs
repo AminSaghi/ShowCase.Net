@@ -177,7 +177,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.project, src => src.Project)
                 .Map(dest => dest.children, src => src.Children);
 
-            TypeAdapterConfig<Feature, ListFeatureApiModel>
+            TypeAdapterConfig<Feature, FeatureApiModel>
                 .ForType()
                 .Map(dest => dest.id, src => src.Id)
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
