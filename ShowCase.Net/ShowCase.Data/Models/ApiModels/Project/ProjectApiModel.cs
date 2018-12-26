@@ -17,6 +17,6 @@ namespace ShowCase.Data.Models.ApiModels.Project
 
         public bool published { get; set; }
 
-        public IEnumerable<FeatureApiModel> features { get; set; }
+        public IEnumerable<ListFeaturesApiModel> features { get; set; }
     }
 }

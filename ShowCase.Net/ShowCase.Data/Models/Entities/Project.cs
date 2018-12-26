@@ -17,6 +17,6 @@ namespace ShowCase.Data.Models.Entities
 
         public bool Published { get; set; }
 
-        public virtual ICollection<Feature> Features { get; set; }
+        public virtual IEnumerable<Feature> Features { get; set; }
     }
 }

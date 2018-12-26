@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShowCase.Data.Models.ApiModels.Feature
 {
-    public class FeatureApiModel : ContentApiModel
+    public class ListFeatureApiModel : ContentApiModel
     {
         public string content { get; set; }
 

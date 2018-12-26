@@ -1,3 +1,18 @@
-<p>
-  home-page works!
-</p>
+<div class="p-grid p-justify-center">
+  <div class="p-col-4" *ngFor="let project of projects">
+    <p-card header="{{project.title}}">
+      <p-header>
+        <img src="{{project.imageUrl}}" />
+      </p-header>
+
+      {[project.description]}
+
+      <p-footer>
+        <button pButton type="button" 
+          *ngIf="project.features && project.features.length > 0" 
+          routerLink="../feature/{{project.features[0].id}}"
+          label="Get Started"></button>
+      </p-footer>
+    </p-card>
+  </div>
+</div>
