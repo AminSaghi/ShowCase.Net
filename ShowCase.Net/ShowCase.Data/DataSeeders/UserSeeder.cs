@@ -13,7 +13,8 @@ namespace ShowCase.Data.DataSeeders
             {
                 IdentityUser user = new IdentityUser
                 {
-                    UserName = "admin"
+                    UserName = "admin",
+                    Email = "admin@example.com"
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "nimda").Result;

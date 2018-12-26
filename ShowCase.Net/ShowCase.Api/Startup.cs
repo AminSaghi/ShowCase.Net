@@ -36,7 +36,7 @@ namespace ShowCase.Api
             //services.AddDbContext<DataDbContext>(options =>
             //    options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);            
 
-            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);
+            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);            
 
             services.AddScoped<PageManager>();
             services.AddScoped<ProjectManager>();
@@ -45,10 +45,7 @@ namespace ShowCase.Api
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
-
-            // Angular's default header name for sending the XSRF token.
-            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+            });            
 
             services.AddIdentity<IdentityUser, IdentityRole>(
                 options =>
@@ -62,7 +59,10 @@ namespace ShowCase.Api
                     options.Password.RequiredLength = 7;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDbContext>();
+                .AddEntityFrameworkStores<DataDbContext>();
+
+            services.AddScoped<UserManager<IdentityUser>>();
+            services.AddScoped<SignInManager<IdentityUser>>();            
 
             // Add Authentication with JWT Tokens
             services.AddAuthentication(opts =>
@@ -91,6 +91,9 @@ namespace ShowCase.Api
                     ValidateAudience = true
                 };
             });
+
+            // Angular's default header name for sending the XSRF token.
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -177,7 +180,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.project, src => src.Project)
                 .Map(dest => dest.children, src => src.Children);
 
-            TypeAdapterConfig<Feature, ListFeatureApiModel>
+            TypeAdapterConfig<Feature, FeatureApiModel>
                 .ForType()
                 .Map(dest => dest.id, src => src.Id)
                 .Map(dest => dest.orderIndex, src => src.OrderIndex)
