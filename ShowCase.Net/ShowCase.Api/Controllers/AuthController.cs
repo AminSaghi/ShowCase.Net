@@ -62,6 +62,35 @@ namespace ShowCase.Api.Controllers
             }
         }
 
+        [HttpPost("changePass")]
+        public async Task<IActionResult> PostChangePassword([FromBody] ChangePasswordApiModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userName = User.Identity.Name;
+                var identityUser = await UserManager.FindByNameAsync(userName);
+
+                var changePasswordResult = await UserManager.ChangePasswordAsync(identityUser, model.CurrentPassword, model.NewPassword);
+                if (changePasswordResult.Succeeded)
+                {
+                    return Ok(ReturningMessages.PasswordChangedSuccessfully);
+                }
+                else
+                {
+                    var errors = string.Join("\n",
+                        changePasswordResult.Errors
+                            .Select(e => e.Description)
+                            .ToArray());
+
+                    return BadRequest(errors);
+                }                
+            }
+            else
+            {
+                return BadRequest(ReturningMessages.InvalidDataSupplied);
+            }
+        }
+
         private async Task<bool> CheckCredentials(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))

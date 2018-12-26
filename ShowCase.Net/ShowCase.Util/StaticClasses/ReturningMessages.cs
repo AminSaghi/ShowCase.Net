@@ -10,6 +10,8 @@ namespace ShowCase.Util.StaticClasses
 
         public static string InvalidUserNameOrPassword => "Invalid username or password.";
 
+        public static string PasswordChangedSuccessfully => "Password changed successfully.";
+
         #endregion
 
         #region CUD
