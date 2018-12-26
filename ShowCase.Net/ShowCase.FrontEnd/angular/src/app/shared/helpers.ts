@@ -13,7 +13,7 @@ export class Helpers {
 
                 const menuItem = {
                     label: item.title,
-                    routerLink: [preRoute + '/' + item.slug],
+                    routerLink: [preRoute + '/' + item.id],
                     items: (item.children && item.children.length > 0 ? this.createMenuItemsOf(item.children, preRoute) : [])
                 };
 
@@ -34,7 +34,7 @@ export class Helpers {
 
                 const menuItem = {
                     label: project.title,
-                    routerLink: ['project/' + project.slug],
+                    // routerLink: ['project/' + project.id],
                     items: (project.features && project.features.length > 0 ? this.createMenuItemsOf(project.features, 'feature') : [])
                 };
 
