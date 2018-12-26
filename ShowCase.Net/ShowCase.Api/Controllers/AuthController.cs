@@ -26,8 +26,8 @@ namespace ShowCase.Api.Controllers
         public SignInManager<IdentityUser> SignInManager { get; private set; }
 
         [AllowAnonymous]
-        [HttpGet("login")]
-        public async Task<IActionResult> GetLogin([FromBody] LoginApiModel model)
+        [HttpPost("login")]
+        public async Task<IActionResult> PostLogin([FromBody] LoginApiModel model)
         {
             if (ModelState.IsValid)
             {
