@@ -2,8 +2,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// import { Urls } from './urls';
-
 import { AuthService } from './auth/auth.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -19,10 +17,10 @@ import { SettingsService } from './settings/settings.service';
         HttpClientModule
     ],
     declarations: [
-        // Urls
+
     ],
     exports: [
-        // Urls
+
     ]
 })
 export class ApiClientModule {
