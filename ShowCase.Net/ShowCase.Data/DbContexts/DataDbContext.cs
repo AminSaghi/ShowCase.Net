@@ -32,7 +32,7 @@ namespace ShowCase.Data.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToLower() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
 
             modelBuilder.Entity<Page>().ToTable("Pages");
             modelBuilder.Entity<Page>().Property(i => i.Id).ValueGeneratedOnAdd();

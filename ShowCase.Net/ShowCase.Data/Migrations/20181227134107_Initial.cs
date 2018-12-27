@@ -232,7 +232,7 @@ namespace ShowCase.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d13c917e-91b1-4612-9775-b6f586689067", "7fa4cfda-61fa-48ef-8c29-74f586d9920a", "Admin", "admin" });
+                values: new object[] { "ccb7c483-b367-4d07-983a-1f82f3d71ac4", "e737eac8-d43c-4975-a06f-63387df95228", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
