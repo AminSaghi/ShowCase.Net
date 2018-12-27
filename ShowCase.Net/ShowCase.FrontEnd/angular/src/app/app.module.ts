@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
+import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
@@ -28,7 +29,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
 
     ToastModule,
@@ -41,8 +42,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }
-  ],
+  },
+    MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
