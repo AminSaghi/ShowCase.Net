@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -18,6 +20,9 @@ import { CreateEditPageComponent } from './create-edit-page/create-edit-page.com
   imports: [
     CommonModule,
 
+    FormsModule,
+    ReactiveFormsModule,
+
     ConfirmDialogModule,
     TreeTableModule,
     ButtonModule,
@@ -29,6 +34,7 @@ import { CreateEditPageComponent } from './create-edit-page/create-edit-page.com
 
     PageRoutingModule
   ],
+  providers: [ConfirmationService],
   declarations: [ListPagesComponent, CreateEditPageComponent]
 })
 export class PageModule { }

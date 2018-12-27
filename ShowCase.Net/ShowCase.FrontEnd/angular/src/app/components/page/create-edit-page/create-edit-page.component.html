@@ -18,7 +18,7 @@
           <label for="title">Title</label>
         </div>
         <div class="p-col-12">
-          <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('name')}" class="required" />
+          <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('title')}" class="required" />
         </div>
         <!-- Slug -->
         <div class="p-col-12">
@@ -52,7 +52,7 @@
     </form>
   </div>
   <div class="card-footer">
-    <button pButton (click)="createProject()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!projectForm.valid"
+    <button pButton (click)="createPage()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!pageForm.valid"
       class="btn btn-success" icon="{{commandButtonIcon}}">
       {{commandButtonText}}
     </button>
