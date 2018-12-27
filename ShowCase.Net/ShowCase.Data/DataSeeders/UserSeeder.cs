@@ -17,7 +17,7 @@ namespace ShowCase.Data.DataSeeders
                     Email = "admin@example.com"
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "nimda").Result;
+                IdentityResult result = userManager.CreateAsync(user, "P4ssword").Result;
 
                 if (result.Succeeded)
                 {
