@@ -1,6 +1,6 @@
 
 export class Urls {
-    static BASE = 'http://localhost:5000/api/';
+    static BASE = 'http://localhost:46372/api/';
     // static BASE_STREAM = 'http://localhost:5000/streams/';
 
     /*

@@ -45,7 +45,17 @@ namespace ShowCase.Api
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });            
+            });
+
+            services.AddCors(options => options.AddPolicy("CORS",
+                builder =>
+                {
+                    builder                    
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                }));
 
             services.AddIdentity<IdentityUser, IdentityRole>(
                 options =>
@@ -104,8 +114,10 @@ namespace ShowCase.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CORS");
+
             app.UseMvc();
-            app.UseAuthentication();
+            app.UseAuthentication();            
 
             MapsterConfig();
         }
