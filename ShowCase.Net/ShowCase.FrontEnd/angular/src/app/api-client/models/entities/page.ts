@@ -7,5 +7,5 @@ export class Page extends Content {
     updateDateTime: string;
 
     parent: Page;
-    children: Page[]
+    children: Page[];
 }
