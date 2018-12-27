@@ -13,7 +13,7 @@ import { FeatureComponent } from './feature/feature.component';
     CommonModule,
 
     CardModule,
-    
+
     HomeRoutingModule
   ],
   declarations: [HomePageComponent, PageComponent, FeatureComponent]

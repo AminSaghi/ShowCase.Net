@@ -1,7 +1,11 @@
 
 export class Urls {
-    static BASE = 'http://localhost:46372/api/';
-    // static BASE_STREAM = 'http://localhost:5000/streams/';
+    /*
+     * For automatic XSRF protection to work,
+     * URLs of the httpClient MUST be relative and
+     * WITHOUT http: or https:
+     */
+    static BASE = '//localhost:46372/api/';
 
     /*
      * Auth Service

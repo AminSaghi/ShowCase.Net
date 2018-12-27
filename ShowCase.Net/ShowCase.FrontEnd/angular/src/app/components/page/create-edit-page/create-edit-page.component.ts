@@ -27,6 +27,7 @@ export class CreateEditPageComponent implements OnInit {
     private pageService: PageService,
     private location: Location) {
 
+    this.pageModel = new Page();
     this.pageForm = formBuilder.group({
       id: new FormControl(this.pageModel.id),
       parentId: new FormControl(this.pageModel.parentId),

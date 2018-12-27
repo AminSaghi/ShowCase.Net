@@ -9,7 +9,7 @@ using ShowCase.Data.DbContexts;
 namespace ShowCase.Data.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20181226191327_Initial")]
+    [Migration("20181227134107_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,10 +43,10 @@ namespace ShowCase.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d13c917e-91b1-4612-9775-b6f586689067",
-                            ConcurrencyStamp = "7fa4cfda-61fa-48ef-8c29-74f586d9920a",
+                            Id = "ccb7c483-b367-4d07-983a-1f82f3d71ac4",
+                            ConcurrencyStamp = "e737eac8-d43c-4975-a06f-63387df95228",
                             Name = "Admin",
-                            NormalizedName = "admin"
+                            NormalizedName = "ADMIN"
                         });
                 });
 

@@ -44,7 +44,7 @@ namespace ShowCase.Api
 
             services.AddMvc(options =>
             {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddCors(options => options.AddPolicy("CORS",

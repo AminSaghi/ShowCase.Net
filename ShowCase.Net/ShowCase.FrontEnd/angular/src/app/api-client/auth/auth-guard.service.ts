@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
     if (this.auth.isAuthenticated()) {
       return true;
     } else {
-      this.myRoute.navigate(['/404']);
+      this.myRoute.navigate(['/not-found']);
       return false;
     }
   }
