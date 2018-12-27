@@ -38,9 +38,11 @@ export class LoginComponent {
   performLogin() {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe(response => {
+        console.log(response);
         this.auth.setAuthToken(response['token']);
         this.router.navigate(['dashboard']);
       }, error => {
+        console.log(error);
         this.messageService.add({
           severity: 'error',
           summary: 'Login failed',
