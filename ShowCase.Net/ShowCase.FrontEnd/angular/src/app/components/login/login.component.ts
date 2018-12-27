@@ -40,7 +40,7 @@ export class LoginComponent {
       this.auth.login(this.loginForm.value).subscribe(response => {
         console.log(response);
         this.auth.setAuthToken(response['token']);
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['admin/dashboard']);
       }, error => {
         console.log(error);
         this.messageService.add({
