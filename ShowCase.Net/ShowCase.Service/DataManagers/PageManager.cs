@@ -117,7 +117,10 @@ namespace ShowCase.Service.DataManagers
                     }
                 }
 
-                var orderIndex = await db.Pages.MaxAsync(p => p.OrderIndex);
+                var orderIndex = await db.Pages
+                    .Select(p => p.OrderIndex)
+                    .DefaultIfEmpty(0)
+                    .MaxAsync();
 
                 var now = DateTimeOffset.Now;
 

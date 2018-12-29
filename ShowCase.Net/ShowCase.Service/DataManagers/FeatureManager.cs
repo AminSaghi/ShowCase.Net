@@ -134,7 +134,10 @@ namespace ShowCase.Service.DataManagers
                     }
                 }
 
-                var orderIndex = await db.Features.MaxAsync(p => p.OrderIndex);
+                var orderIndex = await db.Features
+                    .Select(f => f.OrderIndex)
+                    .DefaultIfEmpty(0)
+                    .MaxAsync();
 
                 var now = DateTimeOffset.Now;
 
