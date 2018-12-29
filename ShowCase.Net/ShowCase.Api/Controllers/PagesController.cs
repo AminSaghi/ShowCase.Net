@@ -55,7 +55,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> PostPage(CreatePageApiModel model)
+        public async Task<IActionResult> PostPage([FromBody] CreatePageApiModel model)
         {
             if (ModelState.IsValid)
             {
