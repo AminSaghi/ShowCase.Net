@@ -77,7 +77,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> PutPage(EditPageApiModel model)
+        public async Task<IActionResult> PutPage([FromBody] EditPageApiModel model)
         {
             if (ModelState.IsValid)
             {
