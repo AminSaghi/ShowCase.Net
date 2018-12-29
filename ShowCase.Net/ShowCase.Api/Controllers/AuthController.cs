@@ -40,9 +40,9 @@ namespace ShowCase.Api.Controllers
                     var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
                     var userClaims = new Claim[]
                     {
-                        new Claim(JwtRegisteredClaimNames.UniqueName, model.UserName.ToLower())                      
+                        new Claim(JwtRegisteredClaimNames.Sub, model.UserName.ToLower())                      
                     };
-                    var jwtToken = new JwtSecurityToken(
+                    var jwtToken = new JwtSecurityToken(            
                         claims: userClaims, 
                         notBefore: now,
                         expires: now.AddMinutes(SecuritySettings.JwtTokenExpireMins),
