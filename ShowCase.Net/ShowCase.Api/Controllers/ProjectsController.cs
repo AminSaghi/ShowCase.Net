@@ -54,7 +54,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> PostProject(CreateProjectApiModel model)
+        public async Task<IActionResult> PostProject([FromBody] CreateProjectApiModel model)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> PutProject(EditProjectApiModel model)
+        public async Task<IActionResult> PutProject([FromBody] EditProjectApiModel model)
         {
             if (ModelState.IsValid)
             {

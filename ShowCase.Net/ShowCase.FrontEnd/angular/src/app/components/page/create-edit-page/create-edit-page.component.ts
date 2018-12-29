@@ -74,6 +74,7 @@ export class CreateEditPageComponent implements OnInit {
     if (this.pageForm.valid) {
       this.setParentIdFromParent();
       const formValue = this.pageForm.value;
+      console.log(formValue);
       this.pageService.createPage(formValue).subscribe();
     } else {
       Object.keys(this.pageForm.controls).forEach(field => {
@@ -98,7 +99,7 @@ export class CreateEditPageComponent implements OnInit {
 
   setParentIdFromParent() {
     this.pageForm.controls['parentId']
-      .setValue(this.pageForm.controls['parent'].value ? this.pageForm.controls['parent'].value.id : null);
+      .setValue(this.pageForm.controls['parent'].value ? this.pageForm.controls['parent'].value.id : 0);
   }
 
   isInvalid(controlName) {

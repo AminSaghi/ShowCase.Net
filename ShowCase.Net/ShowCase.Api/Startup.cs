@@ -40,12 +40,7 @@ namespace ShowCase.Api
 
             services.AddScoped<PageManager>();
             services.AddScoped<ProjectManager>();
-            services.AddScoped<FeatureManager>();
-
-            services.AddMvc(options =>
-            {
-                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+            services.AddScoped<FeatureManager>();            
 
             services.AddCors(options => options.AddPolicy("CORS",
                 builder =>
@@ -88,22 +83,27 @@ namespace ShowCase.Api
                 cfg.SaveToken = true;
                 cfg.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    // standard configuration
+                    //// standard configuration
                     ValidIssuer = SecuritySettings.JwtIssuer,
                     ValidAudience = SecuritySettings.JwtAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecuritySettings.JwtSecret)),
                     ClockSkew = TimeSpan.Zero,
 
                     // security switches
-                    RequireExpirationTime = true,
-                    ValidateIssuer = true,
+                    RequireExpirationTime = false,
+                    ValidateIssuer = false,
                     ValidateIssuerSigningKey = true,
-                    ValidateAudience = true
+                    ValidateAudience = false
                 };
             });
 
             // Angular's default header name for sending the XSRF token.
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
+            services.AddMvc(options =>
+            {
+                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,10 +114,9 @@ namespace ShowCase.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors("CORS");
-
+            app.UseCors("CORS");            
+            app.UseAuthentication();
             app.UseMvc();
-            app.UseAuthentication();            
 
             MapsterConfig();
         }

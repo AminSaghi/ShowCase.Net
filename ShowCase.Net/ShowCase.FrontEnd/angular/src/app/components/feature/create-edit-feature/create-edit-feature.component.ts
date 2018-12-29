@@ -114,7 +114,7 @@ export class CreateEditFeatureComponent implements OnInit {
   }
   setParentIdFromParent() {
     this.featureForm.controls['parentId']
-      .setValue(this.featureForm.controls['parent'].value ? this.featureForm.controls['parent'].value.id : null);
+      .setValue(this.featureForm.controls['parent'].value ? this.featureForm.controls['parent'].value.id : 0);
   }
 
   isInvalid(controlName) {

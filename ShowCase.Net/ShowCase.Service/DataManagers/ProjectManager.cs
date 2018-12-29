@@ -139,7 +139,10 @@ namespace ShowCase.Service.DataManagers
         {
             try
             {               
-                var orderIndex = await db.Projects.MaxAsync(p => p.OrderIndex);
+                var orderIndex = await db.Projects
+                    .Select(p => p.OrderIndex)
+                    .DefaultIfEmpty(0)
+                    .MaxAsync();
 
                 var now = DateTimeOffset.Now;
 

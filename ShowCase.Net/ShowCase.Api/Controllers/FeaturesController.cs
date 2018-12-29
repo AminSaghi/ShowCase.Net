@@ -56,7 +56,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> PostFeature(CreateFeatureApiModel model)
+        public async Task<IActionResult> PostFeature([FromBody] CreateFeatureApiModel model)
         {            
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace ShowCase.Api.Controllers
 
         [Authorize]
         [HttpPut]
-        public async Task<IActionResult> PutFeature(EditFeatureApiModel model)
+        public async Task<IActionResult> PutFeature([FromBody] EditFeatureApiModel model)
         {            
             if (ModelState.IsValid)
             {
