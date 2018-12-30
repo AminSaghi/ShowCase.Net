@@ -232,7 +232,7 @@ namespace ShowCase.Service.DataManagers
                     feature.UpdateDateTime = DateTimeOffset.Now;
                     feature.Published = model.published;
 
-                    db.Entry(getFeatureResult).State = EntityState.Modified;
+                    db.Entry(feature).State = EntityState.Modified;
                     await db.SaveChangesAsync();
 
                     return new CrudOperationResult<Feature>

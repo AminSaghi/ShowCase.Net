@@ -192,7 +192,7 @@ namespace ShowCase.Service.DataManagers
                     project.Slug = model.slug;                    
                     project.Published = model.published;
 
-                    db.Entry(getProjectResult).State = EntityState.Modified;
+                    db.Entry(project).State = EntityState.Modified;
                     await db.SaveChangesAsync();
 
                     return new CrudOperationResult<Project>
