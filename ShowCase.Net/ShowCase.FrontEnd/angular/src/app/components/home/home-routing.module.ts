@@ -11,11 +11,11 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
-    path: 'page/:slug',
+    path: 'page/:id',
     component: PageComponent
   },
   {
-    path: 'feature/:slug',
+    path: 'feature/:id',
     component: FeatureComponent
   }
 ];
