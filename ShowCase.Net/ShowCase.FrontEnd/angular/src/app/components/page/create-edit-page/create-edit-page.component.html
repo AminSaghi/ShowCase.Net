@@ -1,7 +1,4 @@
-<div class="card">
-  <div class="card-header">
-    <strong>{{cardHeaderText}}</strong>
-  </div>
+<p-card header="{{cardHeaderText}}">
   <div class="card-body">
     <form [formGroup]="pageForm" class="form-horizontal">
       <div class="p-grid">
@@ -51,14 +48,14 @@
       </div>
     </form>
   </div>
-  <div class="card-footer">
-    <button pButton (click)="createPage()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!pageForm.valid"
-      class="btn btn-success" icon="{{commandButtonIcon}}">
+  <p-footer>
+    <button pButton (click)="editMode ? editPage() : createPage()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!pageForm.valid"
+      icon="{{commandButtonIcon}}">
       {{commandButtonText}}
     </button>
     &nbsp;
     <button pButton (click)="goBack()" class="ui-bottun-primary ui-boutton-raised" icon="pi pi-chevron-left">
       Return to list
     </button>
-  </div>
-</div>
+  </p-footer>
+</p-card>

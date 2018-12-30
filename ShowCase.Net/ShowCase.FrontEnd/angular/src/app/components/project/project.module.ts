@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -18,7 +21,10 @@ import { CreateEditProjectComponent } from './create-edit-project/create-edit-pr
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
+    CardModule,
     ConfirmDialogModule,
     TableModule,
     ButtonModule,
@@ -31,6 +37,7 @@ import { CreateEditProjectComponent } from './create-edit-project/create-edit-pr
 
     ProjectRoutingModule
   ],
+  providers: [ConfirmationService],
   declarations: [ListProjectsComponent, CreateEditProjectComponent]
 })
 export class ProjectModule { }

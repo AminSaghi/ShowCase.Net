@@ -13,8 +13,8 @@ export class Helpers {
 
                 const menuItem = {
                     label: item.title,
-                    routerLink: [preRoute + '/' + item.id],
-                    items: (item.children && item.children.length > 0 ? this.createMenuItemsOf(item.children, preRoute) : [])
+                    routerLink: preRoute + '/' + item.id,
+                    items: (item.children && item.children.length > 0 ? this.createMenuItemsOf(item.children, preRoute) : null)
                 };
 
                 result.push(menuItem);
@@ -35,7 +35,7 @@ export class Helpers {
                 const menuItem = {
                     label: project.title,
                     // routerLink: ['project/' + project.id],
-                    items: (project.features && project.features.length > 0 ? this.createMenuItemsOf(project.features, 'feature') : [])
+                    items: (project.features && project.features.length > 0 ? this.createMenuItemsOf(project.features, 'feature') : null)
                 };
 
                 result.push(menuItem);

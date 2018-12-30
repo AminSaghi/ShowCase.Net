@@ -58,6 +58,13 @@ export const routes: Routes = [
                 }
             },
             {
+                path: 'features',
+                loadChildren: './components/feature/feature.module#FeatureModule',
+                data: {
+                    title: 'Features'
+                }
+            },
+            {
                 path: 'users',
                 loadChildren: './components/user/user.module#UserModule',
                 data: {

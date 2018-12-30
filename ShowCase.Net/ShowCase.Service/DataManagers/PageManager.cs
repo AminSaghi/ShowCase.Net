@@ -199,7 +199,7 @@ namespace ShowCase.Service.DataManagers
                     page.UpdateDateTime = DateTimeOffset.Now;
                     page.Published = model.published;
 
-                    db.Entry(getPageResult).State = EntityState.Modified;
+                    db.Entry(page).State = EntityState.Modified;
                     await db.SaveChangesAsync();
 
                     return new CrudOperationResult<Page>

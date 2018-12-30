@@ -1,7 +1,4 @@
-<div class="card">
-  <div class="card-header">
-    <i class="fa fa-align-justify"></i> List of Projects
-  </div>
+<p-card header="List of Projects">
   <div class="card-body">
     <a routerLink="ce" class="btn btn-primary">Create new Project</a>
     <br />
@@ -9,21 +6,20 @@
     <p-table [value]="projects" [paginator]="true" [rows]="10" [rowHover]="true">
       <ng-template pTemplate="header">
         <tr>
-          <th>Title</th>          
+          <th>Title</th>
           <th>Slug</th>
           <th>Order</th>
           <th>Published</th>
           <th>Actions</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+      <ng-template pTemplate="body" let-rowData>
         <tr>
           <td>
-            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
             {{rowData.title}}
           </td>
           <td>{{rowData.slug}}</td>
-          <td>{{rowData.orderIndex}}</td>          
+          <td>{{rowData.orderIndex}}</td>
           <td>{{rowData.published}}</td>
           <td>
             <button pButton routerLink="ce/{{rowData.id}}" type="button" class="ui-button-warning ui-button-rounded ui-button-raised"
@@ -43,7 +39,7 @@
       </ng-template>
     </p-table>
   </div>
-</div>
+</p-card>
 
 <p-confirmDialog #cd header="Are you sure?!" icon="pi pi-exclamation-triangle">
   <p-footer>

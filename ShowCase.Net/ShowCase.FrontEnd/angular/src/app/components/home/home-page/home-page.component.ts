@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProjectService, FeatureService } from 'src/app/api-client';
 
@@ -11,7 +12,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private featureService: FeatureService) { }
+    private sanitizer: DomSanitizer) { }
 
   public projects = [];
 
@@ -20,7 +21,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getProjects() {
-    this.projectService.getProjects(true, false).subscribe(response => {
+    this.projectService.getProjects(true, false).subscribe(response => {console.log(response);
       this.projects = response;
     });
   }
