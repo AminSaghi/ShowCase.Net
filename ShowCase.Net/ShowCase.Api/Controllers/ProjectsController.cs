@@ -21,14 +21,14 @@ namespace ShowCase.Api.Controllers
         #region CRUD
 
         [HttpGet]
-        public async Task<IActionResult> GetProjects()
+        public async Task<IActionResult> GetProjects(int image = 0, int features = 0)
         {
             var onlyPublished = !User.Identity.IsAuthenticated;
 
-            var getProjectsResult = await ProjectManager.GetProjectsAsync(onlyPublished);
+            var getProjectsResult = await ProjectManager.GetProjectsAsync(onlyPublished, image > 0, features > 0);
             if (getProjectsResult.Success)
             {
-                return Ok(getProjectsResult.ReturningValue.ToArray().Adapt<ListProjectsApiModel[]>());
+                return Ok(getProjectsResult.ReturningValue.ToArray().Adapt<ProjectApiModel[]>());
             }
             else
             {

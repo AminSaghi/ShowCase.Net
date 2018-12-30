@@ -12,7 +12,7 @@ import { ProjectService } from 'src/app/api-client';
   styleUrls: ['./create-edit-project.component.css']
 })
 export class CreateEditProjectComponent implements OnInit {
-  editMode = false;
+  public editMode = false;
   public cardHeaderText = 'Create new Project';
   public commandButtonText = 'Create';
   public commandButtonClass = 'ui-button-success';
@@ -28,12 +28,15 @@ export class CreateEditProjectComponent implements OnInit {
     private projectService: ProjectService,
     private location: Location) {
 
+    this.projectModel = new Project();
+    this.images = [];
     this.projectForm = formBuilder.group({
       id: new FormControl(this.projectModel.id),
       orderIndex: new FormControl(this.projectModel.orderIndex),
       title: new FormControl(this.projectModel.title, Validators.required),
       slug: new FormControl(this.projectModel.slug, Validators.required),
       description: new FormControl(this.projectModel.description),
+      imageUrl: new FormControl(this.projectModel.imageUrl),
       published: new FormControl(this.projectModel.published)
     });
   }
@@ -44,12 +47,13 @@ export class CreateEditProjectComponent implements OnInit {
 
       const id = this.activatedRoute.snapshot.params['id'];
       if (id) {
-        this.projectService.getProject(id).subscribe(project => {
+        this.projectService.getProject(id).subscribe(project => {console.log(project);
           this.projectForm.controls['id'].setValue(project.id);
           this.projectForm.controls['orderIndex'].setValue(project.orderIndex);
           this.projectForm.controls['title'].setValue(project.title);
           this.projectForm.controls['slug'].setValue(project.slug);
           this.projectForm.controls['description'].setValue(project.description);
+          this.projectForm.controls['imageUrl'].setValue(project.imageUrl);
           this.projectForm.controls['published'].setValue(project.published);
 
           this.images.push(project.imageUrl);
@@ -69,6 +73,7 @@ export class CreateEditProjectComponent implements OnInit {
   createProject() {
     if (this.projectForm.valid) {
       const formValue = this.projectForm.value;
+      console.log(formValue);
       this.projectService.createProject(formValue).subscribe();
     } else {
       Object.keys(this.projectForm.controls).forEach(field => {

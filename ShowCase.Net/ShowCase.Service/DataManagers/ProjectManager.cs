@@ -151,6 +151,7 @@ namespace ShowCase.Service.DataManagers
                     OrderIndex = ++orderIndex,
                     Title = model.title,
                     Slug = model.slug,
+                    Description = model.description,
                     ImageUrl = model.imageUrl,  
 
                     Published = false
@@ -189,7 +190,9 @@ namespace ShowCase.Service.DataManagers
 
                     project.OrderIndex = model.orderIndex;
                     project.Title = model.title;
-                    project.Slug = model.slug;                    
+                    project.Slug = model.slug;   
+                    project.Description = model.description;
+                    project.ImageUrl = model.imageUrl;
                     project.Published = model.published;
 
                     db.Entry(project).State = EntityState.Modified;
