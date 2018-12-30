@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
@@ -23,6 +24,7 @@ import { CreateEditPageComponent } from './create-edit-page/create-edit-page.com
     FormsModule,
     ReactiveFormsModule,
 
+    CardModule,
     ConfirmDialogModule,
     TreeTableModule,
     ButtonModule,

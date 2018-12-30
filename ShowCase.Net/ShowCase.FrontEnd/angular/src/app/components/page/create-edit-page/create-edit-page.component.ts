@@ -12,7 +12,7 @@ import { PageService } from 'src/app/api-client';
   styleUrls: ['./create-edit-page.component.css']
 })
 export class CreateEditPageComponent implements OnInit {
-  editMode = false;
+  public editMode = false;
   public cardHeaderText = 'Create new Page';
   public commandButtonText = 'Create';
   public commandButtonClass = 'ui-button-success';
@@ -35,6 +35,7 @@ export class CreateEditPageComponent implements OnInit {
       title: new FormControl(this.pageModel.title, Validators.required),
       slug: new FormControl(this.pageModel.slug),
       content: new FormControl(this.pageModel.content),
+      published: new FormControl(this.pageModel.published),
 
       parent: new FormControl(this.pageModel.parent),
     });
@@ -57,6 +58,7 @@ export class CreateEditPageComponent implements OnInit {
           this.pageForm.controls['title'].setValue(page.title);
           this.pageForm.controls['slug'].setValue(page.slug);
           this.pageForm.controls['content'].setValue(page.slug);
+          this.pageForm.controls['published'].setValue(page.slug);
 
           this.editMode = true;
           this.cardHeaderText = 'Edit Page';
