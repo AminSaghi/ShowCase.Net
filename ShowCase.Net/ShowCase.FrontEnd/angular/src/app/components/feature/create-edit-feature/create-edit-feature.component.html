@@ -1,7 +1,4 @@
-<div class="card">
-  <div class="card-header">
-    <strong>{{cardHeaderText}}</strong>
-  </div>
+<p-card header="{{cardHeaderText}}">
   <div class="card-body">
     <form [formGroup]="featureForm" class="form-horizontal">
       <div class="p-grid">
@@ -26,7 +23,7 @@
           <label for="title">Title</label>
         </div>
         <div class="p-col-12">
-          <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('name')}" class="required" />
+          <input pInputText type="text" formControlName="title" [ngClass]="{'error': isInvalid('title')}" class="required" />
         </div>
         <!-- Slug -->
         <div class="p-col-12">
@@ -59,14 +56,14 @@
       </div>
     </form>
   </div>
-  <div class="card-footer">
-    <button pButton (click)="createProject()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!projectForm.valid"
-      class="btn btn-success" icon="{{commandButtonIcon}}">
+  <p-footer>
+    <button pButton (click)="editMode ? editFeature() : createFeature()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!featureForm.valid"
+      icon="{{commandButtonIcon}}">
       {{commandButtonText}}
     </button>
     &nbsp;
     <button pButton (click)="goBack()" class="ui-bottun-primary ui-boutton-raised" icon="pi pi-chevron-left">
       Return to list
     </button>
-  </div>
-</div>
+  </p-footer>
+</p-card>

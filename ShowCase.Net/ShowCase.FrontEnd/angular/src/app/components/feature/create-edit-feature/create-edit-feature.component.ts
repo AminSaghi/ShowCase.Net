@@ -13,7 +13,7 @@ import { FeatureService, ProjectService } from 'src/app/api-client';
   styleUrls: ['./create-edit-feature.component.css']
 })
 export class CreateEditFeatureComponent implements OnInit {
-  editMode = false;
+  public editMode = false;
   public cardHeaderText = 'Create new Feature';
   public commandButtonText = 'Create';
   public commandButtonClass = 'ui-button-success';
@@ -31,6 +31,7 @@ export class CreateEditFeatureComponent implements OnInit {
     private featureService: FeatureService,
     private location: Location) {
 
+      this.featureModel = new Feature();
     this.featureForm = formBuilder.group({
       id: new FormControl(this.featureModel.id),
       projectId: new FormControl(this.featureModel.projectId),
@@ -39,6 +40,7 @@ export class CreateEditFeatureComponent implements OnInit {
       title: new FormControl(this.featureModel.title, Validators.required),
       slug: new FormControl(this.featureModel.slug),
       content: new FormControl(this.featureModel.content),
+      published: new FormControl(this.featureModel.published),
 
       project: new FormControl(this.featureModel.project),
       parent: new FormControl(this.featureModel.parent),
@@ -68,7 +70,8 @@ export class CreateEditFeatureComponent implements OnInit {
             this.featureForm.controls['orderIndex'].setValue(feature.orderIndex);
             this.featureForm.controls['title'].setValue(feature.title);
             this.featureForm.controls['slug'].setValue(feature.slug);
-            this.featureForm.controls['content'].setValue(feature.slug);
+            this.featureForm.controls['content'].setValue(feature.content);
+            this.featureForm.controls['published'].setValue(feature.published);
 
             this.editMode = true;
             this.cardHeaderText = 'Edit Feature';

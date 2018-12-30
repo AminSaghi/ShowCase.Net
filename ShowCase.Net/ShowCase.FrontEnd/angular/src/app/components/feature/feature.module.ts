@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -17,7 +20,10 @@ import { ListFeaturesComponent } from './list-features/list-features.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
+    CardModule,
     ConfirmDialogModule,
     TreeTableModule,
     ButtonModule,
@@ -29,6 +35,7 @@ import { ListFeaturesComponent } from './list-features/list-features.component';
 
     FeatureRoutingModule
   ],
+  providers: [ConfirmationService],
   declarations: [CreateEditFeatureComponent, ListFeaturesComponent]
 })
 export class FeatureModule { }
