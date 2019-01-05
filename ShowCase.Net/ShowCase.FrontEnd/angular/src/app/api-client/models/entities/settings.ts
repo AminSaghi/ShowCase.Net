@@ -1,4 +1,5 @@
 export class Settings {
     id: string;
-    name: string;
+    logoUrl: string;
+    footerContent: string;
 }
