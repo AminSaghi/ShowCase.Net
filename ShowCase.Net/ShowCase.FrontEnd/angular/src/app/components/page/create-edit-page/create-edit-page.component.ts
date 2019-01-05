@@ -76,7 +76,6 @@ export class CreateEditPageComponent implements OnInit {
     if (this.pageForm.valid) {
       this.setParentIdFromParent();
       const formValue = this.pageForm.value;
-      console.log(formValue);
       this.pageService.createPage(formValue).subscribe();
     } else {
       Object.keys(this.pageForm.controls).forEach(field => {

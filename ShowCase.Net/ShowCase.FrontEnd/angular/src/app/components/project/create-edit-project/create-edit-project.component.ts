@@ -47,7 +47,7 @@ export class CreateEditProjectComponent implements OnInit {
 
       const id = this.activatedRoute.snapshot.params['id'];
       if (id) {
-        this.projectService.getProject(id).subscribe(project => {console.log(project);
+        this.projectService.getProject(id).subscribe(project => {
           this.projectForm.controls['id'].setValue(project.id);
           this.projectForm.controls['orderIndex'].setValue(project.orderIndex);
           this.projectForm.controls['title'].setValue(project.title);
@@ -73,7 +73,6 @@ export class CreateEditProjectComponent implements OnInit {
   createProject() {
     if (this.projectForm.valid) {
       const formValue = this.projectForm.value;
-      console.log(formValue);
       this.projectService.createProject(formValue).subscribe();
     } else {
       Object.keys(this.projectForm.controls).forEach(field => {
