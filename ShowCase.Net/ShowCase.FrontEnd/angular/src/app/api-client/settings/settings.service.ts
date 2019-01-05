@@ -17,6 +17,6 @@ export class SettingsService {
   }
 
   editSettings(settings: Settings): Observable<Settings> {
-    return this.http.put<Settings>(Urls.SETTINGS, Settings);
+    return this.http.put<Settings>(Urls.SETTINGS, settings);
   }
 }
