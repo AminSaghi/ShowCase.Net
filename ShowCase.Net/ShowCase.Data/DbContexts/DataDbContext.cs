@@ -21,6 +21,8 @@ namespace ShowCase.Data.DbContexts
         public DbSet<Project> Projects { get; set; }
         public DbSet<Feature> Features { get; set; }
 
+        public DbSet<Settings> Settings { get; set; }
+
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +35,7 @@ namespace ShowCase.Data.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
+            modelBuilder.Entity<Settings>().HasData(new Settings { LogoUrl = "", FooterContent = "" });
 
             modelBuilder.Entity<Page>().ToTable("Pages");
             modelBuilder.Entity<Page>().Property(i => i.Id).ValueGeneratedOnAdd();
@@ -48,6 +51,9 @@ namespace ShowCase.Data.DbContexts
             modelBuilder.Entity<Feature>().HasOne(i => i.Project).WithMany(u => u.Features).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Feature>().HasOne(i => i.Parent).WithMany(u => u.Children).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Feature>().HasMany(u => u.Children).WithOne(i => i.Parent);
+
+            modelBuilder.Entity<Settings>().ToTable("Settings");
+            modelBuilder.Entity<Settings>().Property(i => i.Id).ValueGeneratedOnAdd();
         }        
     }
 }
