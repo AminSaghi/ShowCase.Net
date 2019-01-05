@@ -2,7 +2,7 @@
   <div class="p-col-12">
     <div class="top-menu">
       <div class="logo">
-        <img />
+        <img *ngIf="settings && settings.logoUrl" [src]="settings.logoUrl" />
       </div>
       <div class="pages-menu">
         <p-menubar [model]="pageMenuItems"></p-menubar>
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="p-col-12">
-    <div class="footer">
+    <div class="footer" [innerHtml]="settings?.footerContent">
 
     </div>
   </div>

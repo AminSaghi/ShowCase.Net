@@ -8,6 +8,9 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { CardModule } from 'primeng/card';
+import { FileUploadModule } from 'primeng/fileupload';
+import { EditorModule } from 'primeng/editor';
 
 import { AppRoutingModule } from './app.routing';
 import { ApiClientModule } from './api-client';
@@ -17,6 +20,7 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     AdminLayoutComponent,
     DefaultLayoutComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     ToastModule,
     MenubarModule,
     PanelMenuModule,
+    CardModule,
+    FileUploadModule,
+    EditorModule,
 
     AppRoutingModule,
     ApiClientModule.forRoot()
