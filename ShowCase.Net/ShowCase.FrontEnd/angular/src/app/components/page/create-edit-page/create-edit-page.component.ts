@@ -57,7 +57,7 @@ export class CreateEditPageComponent implements OnInit {
           this.pageForm.controls['orderIndex'].setValue(page.orderIndex);
           this.pageForm.controls['title'].setValue(page.title);
           this.pageForm.controls['slug'].setValue(page.slug);
-          this.pageForm.controls['content'].setValue(page.slug);
+          this.pageForm.controls['content'].setValue(page.content);
           this.pageForm.controls['published'].setValue(page.slug);
 
           this.editMode = true;
