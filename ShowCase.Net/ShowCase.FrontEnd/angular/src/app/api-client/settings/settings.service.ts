@@ -12,8 +12,8 @@ export class SettingsService {
 
   constructor(private http: HttpClient) { }
 
-  getSettings(): Observable<Settings[]> {
-    return this.http.get<Settings[]>(Urls.SETTINGS);
+  getSettings(): Observable<Settings> {
+    return this.http.get<Settings>(Urls.SETTINGS);
   }
 
   editSettings(settings: Settings): Observable<Settings> {

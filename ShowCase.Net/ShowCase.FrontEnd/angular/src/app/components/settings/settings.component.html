@@ -1,0 +1,34 @@
+<p-card header="Settings">
+  <div class="card-body">
+    <form [formGroup]="settingsForm" class="form-horizontal">
+      <div class="p-grid">
+        <!-- Image -->
+        <div class="p-col-12">
+          <label for="image">Logo Image</label>
+        </div>
+        <div class="p-col-12">
+          <p-fileUpload files="images[]" accept="image/*" auto="true" customUpload="true" (uploadHandler)="getBase64Image($event)"
+            (onClear)="clearImageUrl()" (onRemove)="clearImageUrl($event)" maxFileSize="500000" showUploadButton="false"
+            previewWidth="100"></p-fileUpload>
+        </div>
+        <!-- Content -->
+        <div class="p-col-12">
+          <label for="slug">Content</label>
+        </div>
+        <div class="p-col-12">
+          <p-editor formControlName="footerContent" [style]="{'height':'500px'}"></p-editor>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <button pButton (click)="editSettings()" class="ui-button-warning ui-button-raised" [disabled]="!settingsForm.valid"
+      icon="pi pi-check">
+      Save
+    </button>
+    &nbsp;
+    <button pButton (click)="goBack()" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
+      Return
+    </button>
+  </p-footer>
+</p-card>

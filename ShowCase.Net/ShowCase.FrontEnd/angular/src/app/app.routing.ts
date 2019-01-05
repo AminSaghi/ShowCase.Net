@@ -6,6 +6,7 @@ import { AdminLayoutComponent, DefaultLayoutComponent } from './layouts';
 import { AuthGuardService } from './api-client/auth/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 export const routes: Routes = [
     {
@@ -69,6 +70,13 @@ export const routes: Routes = [
                 loadChildren: './components/user/user.module#UserModule',
                 data: {
                     title: 'Users'
+                }
+            },
+            {
+                path: 'settings',
+                component: SettingsComponent,
+                data: {
+                    title: 'Settings'
                 }
             },
             // {

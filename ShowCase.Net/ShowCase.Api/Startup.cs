@@ -14,6 +14,7 @@ using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
+using ShowCase.Data.Models.ApiModels.Settings;
 using ShowCase.Data.Models.Entities;
 using ShowCase.Service.DataManagers;
 using ShowCase.Util.StaticClasses;
@@ -40,7 +41,8 @@ namespace ShowCase.Api
 
             services.AddScoped<PageManager>();
             services.AddScoped<ProjectManager>();
-            services.AddScoped<FeatureManager>();            
+            services.AddScoped<FeatureManager>();
+            services.AddScoped<SettingsManager>();
 
             services.AddCors(options => options.AddPolicy("CORS",
                 builder =>
@@ -207,6 +209,15 @@ namespace ShowCase.Api
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.project, src => src.Project)
                 .Map(dest => dest.children, src => src.Children);
+
+            #endregion
+
+            #region Settings
+
+            TypeAdapterConfig<Settings, SettingsApiModel>
+                .ForType()
+                .Map(dest => dest.logoUrl, src => src.LogoUrl)
+                .Map(dest => dest.footerContent, src => src.FooterContent);            
 
             #endregion
         }
