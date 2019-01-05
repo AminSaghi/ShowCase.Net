@@ -45,7 +45,7 @@ namespace ShowCase.Service.DataManagers
             }
         }
 
-        public async Task<CrudOperationResult<Settings>> UpdateSettingsAsync(EditSettingsApiModel model)
+        public async Task<CrudOperationResult<Settings>> UpdateSettingsAsync(SettingsApiModel model)
         {
             try
             {
