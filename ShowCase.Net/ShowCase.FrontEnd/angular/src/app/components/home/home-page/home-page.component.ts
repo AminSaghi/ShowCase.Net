@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getProjects() {
-    this.projectService.getProjects(true, false).subscribe(response => {console.log(response);
+    this.projectService.getProjects(true, false).subscribe(response => {
       this.projects = response;
     });
   }
