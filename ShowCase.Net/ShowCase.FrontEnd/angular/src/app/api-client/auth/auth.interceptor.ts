@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-    HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
+    HttpEvent, HttpInterceptor, HttpHandler, HttpHeaders, HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         request = request.clone({
-            withCredentials: true
+            withCredentials: true,
+            headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
         });
 
         if (this.auth.isAuthenticated()) {

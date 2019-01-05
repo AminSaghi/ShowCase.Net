@@ -3,8 +3,8 @@ import { MenuItem, TreeNode } from 'primeng/api';
 import { Project } from 'src/app/api-client/models';
 
 export class Helpers {
-    public static createMenuItemsOf(elements: any[], preRoute: string): MenuItem[] {
-        const pushedIds = [];
+    public static createMenuItemsOf(elements: any[], preRoute: string, pushedIds: number[] = []): MenuItem[] {
+        const pushed = pushedIds;
         const result: MenuItem[] = [];
 
         elements.forEach(function (item) {
@@ -14,7 +14,7 @@ export class Helpers {
                 const menuItem = {
                     label: item.title,
                     routerLink: preRoute + '/' + item.id,
-                    items: (item.children && item.children.length > 0 ? this.createMenuItemsOf(item.children, preRoute) : null)
+                    items: (item.children && item.children.length > 0 ? Helpers.createMenuItemsOf(item.children, preRoute, pushed) : null)
                 };
 
                 result.push(menuItem);
@@ -25,21 +25,16 @@ export class Helpers {
     }
 
     public static createMenuItemsOfProjects(projects: Project[]): MenuItem[] {
-        const pushedIds = [];
         const result: MenuItem[] = [];
 
         projects.forEach(function (project) {
-            if (!pushedIds.includes(project.id)) {
-                pushedIds.push(project.id);
+            const menuItem = {
+                label: project.title,
+                // routerLink: ['project/' + project.id],
+                items: (project.features && project.features.length > 0 ? Helpers.createMenuItemsOf(project.features, 'feature') : null)
+            };
 
-                const menuItem = {
-                    label: project.title,
-                    // routerLink: ['project/' + project.id],
-                    items: (project.features && project.features.length > 0 ? this.createMenuItemsOf(project.features, 'feature') : null)
-                };
-
-                result.push(menuItem);
-            }
+            result.push(menuItem);
         });
 
         return result;

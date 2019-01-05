@@ -62,12 +62,12 @@
     </form>
   </div>
   <p-footer>
-    <button pButton (click)="editMode ? editProject() : createProject()" class="{{commandButtonClass}} ui-boutton-raised" [disabled]="!projectForm.valid"
+    <button pButton (click)="editMode ? editProject() : createProject()" [ngClass]="commandButtonClass + ' ui-button-raised'" [disabled]="!projectForm.valid"
       icon="{{commandButtonIcon}}">
       {{commandButtonText}}
     </button>
     &nbsp;
-    <button pButton (click)="goBack()" class="ui-bottun-primary ui-boutton-raised" icon="pi pi-chevron-left">
+    <button pButton (click)="goBack()" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
       Return to list
     </button>
   </p-footer>
