@@ -35,7 +35,7 @@ namespace ShowCase.Data.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "Admin".ToUpper() });
-            modelBuilder.Entity<Settings>().HasData(new Settings { LogoUrl = "", FooterContent = "" });
+            modelBuilder.Entity<Settings>().HasData(new Settings { Id = 1, LogoUrl = "", FooterContent = "" });
 
             modelBuilder.Entity<Page>().ToTable("Pages");
             modelBuilder.Entity<Page>().Property(i => i.Id).ValueGeneratedOnAdd();
