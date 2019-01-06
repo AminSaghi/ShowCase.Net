@@ -154,6 +154,7 @@ namespace ShowCase.Api
                 .Map(dest => dest.updateDateTime,
                     src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm"))
                 .Map(dest => dest.published, src => src.Published)
+                .Map(dest => dest.parent, src => src.Parent)
                 .Map(dest => dest.children, src => src.Children);
 
             #endregion

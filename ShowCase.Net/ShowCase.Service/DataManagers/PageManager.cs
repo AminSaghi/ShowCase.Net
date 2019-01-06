@@ -73,7 +73,8 @@ namespace ShowCase.Service.DataManagers
             try
             {
                 var page = await db.Pages
-                     .FirstOrDefaultAsync(p => p.Id == id && p.Published == onlyPublished);
+                    .Include(p => p.Parent)
+                    .FirstOrDefaultAsync(p => p.Id == id && p.Published == onlyPublished);
 
                 return new CrudOperationResult<Page>
                 {
