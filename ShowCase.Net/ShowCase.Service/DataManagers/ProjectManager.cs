@@ -117,12 +117,24 @@ namespace ShowCase.Service.DataManagers
                 var project = await db.Projects
                      .FirstOrDefaultAsync(p => p.Id == id && p.Published == onlyPublished);
 
-                return new CrudOperationResult<Project>
+                if (project != null)
                 {
-                    Success = true,
-                    StatusCode = 200,
-                    ReturningValue = project
-                };
+                    return new CrudOperationResult<Project>
+                    {
+                        Success = true,
+                        StatusCode = 200,
+                        ReturningValue = project
+                    };
+                }
+                else
+                {
+                    return new CrudOperationResult<Project>
+                    {
+                        Success = false,
+                        StatusCode = 404,
+                        ReturningValue = null
+                    };
+                }
             }
             catch (Exception ex)
             {

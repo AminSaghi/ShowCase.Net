@@ -176,7 +176,7 @@ namespace ShowCase.Service.DataManagers
                 {
                     var feature = getFeatureResult.ReturningValue;
 
-                    var getProjectResult = await ProjectManager.GetProjectAsync(model.projectId);
+                    var getProjectResult = await ProjectManager.GetProjectAsync(model.projectId, false);
                     if (getProjectResult.Success)
                     {
                         feature.Project = getProjectResult.ReturningValue;
