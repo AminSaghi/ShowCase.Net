@@ -8,8 +8,8 @@ export class Helpers {
         const result: MenuItem[] = [];
 
         elements.forEach(function (item) {
-            if (!pushedIds.includes(item.id)) {
-                pushedIds.push(item.id);
+            if (!pushed.includes(item.id)) {
+                pushed.push(item.id);
 
                 const menuItem = {
                     label: item.title,
@@ -40,13 +40,13 @@ export class Helpers {
         return result;
     }
 
-    public static createTreeNodesOf(elements: any[]) {
-        const pushedIds = [];
+    public static createTreeNodesOf(entityName: string, elements: any[], pushedIds: number[] = []) {
+        const pushed = pushedIds;
         const result: TreeNode[] = [];
 
         elements.forEach(function (node) {
-            if (pushedIds.includes(node.id)) {
-                pushedIds.push(node.id);
+            if (!pushed.includes(node.id)) {
+                pushed.push(node.id);
 
                 const treeNode = {
                     'data': {
@@ -56,9 +56,15 @@ export class Helpers {
                         'slug': node.slug,
                         'updateDateTime': node.updateDateTime,
                         'published': node.published
-                    },
-                    'children': (node.children && node.children.length > 0 ? node.createTreeNodesOf(node.children) : [])
+                    }
                 };
+
+                if (entityName === 'feature') {
+                    treeNode['data']['project'] = node.project;
+                }
+
+                treeNode['children'] = node.children && node.children.length > 0 ?
+                    Helpers.createTreeNodesOf(entityName, node.children, pushed) : [];
 
                 result.push(treeNode);
             }

@@ -10,8 +10,9 @@ namespace ShowCase.Data.Models.ApiModels.Page
         public string content { get; set; }
 
         public string createDateTime { get; set; }
-        public string updateDateTime { get;set;}
+        public string updateDateTime { get; set; }
 
-        public IEnumerable<ListPagesApiModel> children { get;set;}
+        public PageApiModel parent { get; set; }
+        public IEnumerable<PageApiModel> children { get; set; }
     }
 }

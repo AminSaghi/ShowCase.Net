@@ -47,11 +47,11 @@ export class CreateEditPageComponent implements OnInit {
 
       const id = this.activatedRoute.snapshot.params['id'];
       if (id) {
-        this.pageService.getPage(id).subscribe(page => {
+        this.pageService.getPage(id).subscribe(page => {console.log(page);
           this.pageForm.controls['id'].setValue(page.id);
           this.pageForm.controls['parent'].setValue(
-            page.parentId && page.parentId > 0 ?
-              this.pages.find(p => p.id === page.parentId) :
+            page.parent && page.parent.id > 0 ?
+              this.pages.find(p => p.id === page.parent.id) :
               null
           );
           this.pageForm.controls['orderIndex'].setValue(page.orderIndex);
