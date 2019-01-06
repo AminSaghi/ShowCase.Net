@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { FeatureService } from 'src/app/api-client';
+import { Helpers } from 'src/app/shared/helpers';
 
 @Component({
   selector: 'app-list-features',
@@ -15,21 +16,23 @@ export class ListFeaturesComponent implements OnInit {
   constructor(
     private featureService: FeatureService,
     private router: Router,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService) { }
 
   features = [];
   pushedIds = [];
-  public FeatureNodes;
+  public featureNodes;
 
   ngOnInit() {
     this.getFeatures();
   }
 
   getFeatures() {
+    this.addToast('info', 'Loading data', 'Please wait ...');
+
     this.featureService.getFeatures().subscribe(response => {
       this.features = response;
-
-      this.FeatureNodes = this.createTreeNodesOf(this.features);
+      this.featureNodes = Helpers.createTreeNodesOf(this.features);
     });
   }
 
@@ -46,7 +49,15 @@ export class ListFeaturesComponent implements OnInit {
     this.featureService.deleteFeature(FeatureId).subscribe(() => {
       this.features = this.features.filter(i => i.id !== FeatureId);
       this.pushedIds = [];
-      this.FeatureNodes = this.createTreeNodesOf(this.features);
+      this.featureNodes = this.createTreeNodesOf(this.features);
+    });
+  }
+
+  addToast(severity, summary, detail) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail
     });
   }
 
