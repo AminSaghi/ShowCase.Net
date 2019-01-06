@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
+import { MessageService } from 'primeng/api';
+
 import { Feature, Project } from 'src/app/api-client/models';
 import { FeatureService, ProjectService } from 'src/app/api-client';
 
@@ -29,9 +31,10 @@ export class CreateEditFeatureComponent implements OnInit {
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
     private featureService: FeatureService,
+    private messageService: MessageService,
     private location: Location) {
 
-      this.featureModel = new Feature();
+    this.featureModel = new Feature();
     this.featureForm = formBuilder.group({
       id: new FormControl(this.featureModel.id),
       projectId: new FormControl(this.featureModel.projectId),
@@ -56,15 +59,14 @@ export class CreateEditFeatureComponent implements OnInit {
 
         const id = this.activatedRoute.snapshot.params['id'];
         if (id) {
-          const feature = this.features.find(f => f.id === id);
-          if (feature) {
+          this.featureService.getFeature(id).subscribe(feature => {console.log(feature);
             this.featureForm.controls['id'].setValue(feature.id);
             this.featureForm.controls['project'].setValue(
-              this.projects.find(p => p.id === feature.projectId)
+              this.projects.find(p => p.id === feature.project.id)
             );
             this.featureForm.controls['parent'].setValue(
-              feature.parentId && feature.parentId > 0 ?
-                this.features.find(p => p.id === feature.parentId) :
+              feature.parent && feature.parent.id > 0 ?
+                this.features.find(p => p.id === feature.parent.id) :
                 null
             );
             this.featureForm.controls['orderIndex'].setValue(feature.orderIndex);
@@ -78,18 +80,23 @@ export class CreateEditFeatureComponent implements OnInit {
             this.commandButtonText = 'Save';
             this.commandButtonClass = 'ui-button-warning';
             this.commandButtonIcon = 'pi pi-check';
-          } else {
+          }, error => {
             this.goBack();
-          }
+          });
         }
       });
   }
 
   createFeature() {
     if (this.featureForm.valid) {
+      this.addToast('info', 'Creating Feature', 'Please wait ...');
+
+      this.setProjectIdFromProject();
       this.setParentIdFromParent();
       const formValue = this.featureForm.value;
-      this.featureService.createFeature(formValue).subscribe();
+      this.featureService.createFeature(formValue).subscribe(response => {
+        this.addToast('success', 'Done', response);
+      });
     } else {
       Object.keys(this.featureForm.controls).forEach(field => {
         const control = this.featureForm.get(field);
@@ -100,10 +107,14 @@ export class CreateEditFeatureComponent implements OnInit {
 
   editFeature() {
     if (this.featureForm.valid) {
+      this.addToast('info', 'Editing Feature', 'Please wait ...');
+
       this.setProjectIdFromProject();
       this.setParentIdFromParent();
       const formValue = this.featureForm.value;
-      this.featureService.editFeature(formValue).subscribe();
+      this.featureService.editFeature(formValue).subscribe(response => {
+        this.addToast('success', 'Done', response);
+      });
     } else {
       Object.keys(this.featureForm.controls).forEach(field => {
         const control = this.featureForm.get(field);
@@ -122,6 +133,14 @@ export class CreateEditFeatureComponent implements OnInit {
 
   isInvalid(controlName) {
     return this.featureForm.controls[controlName].invalid && this.featureForm.controls[controlName].touched;
+  }
+
+  addToast(severity, summary, detail) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail
+    });
   }
 
   goBack() { this.location.back(); }

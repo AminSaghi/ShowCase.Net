@@ -40,7 +40,7 @@ export class Helpers {
         return result;
     }
 
-    public static createTreeNodesOf(elements: any[], pushedIds: number[] = []) {
+    public static createTreeNodesOf(entityName: string, elements: any[], pushedIds: number[] = []) {
         const pushed = pushedIds;
         const result: TreeNode[] = [];
 
@@ -56,9 +56,15 @@ export class Helpers {
                         'slug': node.slug,
                         'updateDateTime': node.updateDateTime,
                         'published': node.published
-                    },
-                    'children': (node.children && node.children.length > 0 ? Helpers.createTreeNodesOf(node.children, pushed) : [])
+                    }
                 };
+
+                if (entityName === 'feature') {
+                    treeNode['data']['project'] = node.project;
+                }
+
+                treeNode['children'] = node.children && node.children.length > 0 ?
+                    Helpers.createTreeNodesOf(entityName, node.children, pushed) : [];
 
                 result.push(treeNode);
             }

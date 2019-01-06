@@ -22,7 +22,7 @@
             {{rowData.title}}
           </td>
           <td>{{rowData.slug}}</td>
-          <td>{{rowData.projectName</td>
+          <td>{{rowData.project.title}}</td>
           <td>{{rowData.orderIndex}}</td>
           <td>{{rowData.updateDateTime}}</td>
           <td>{{rowData.published}}</td>
@@ -37,7 +37,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td [attr.colspan]="5" style="text-align: center">
+          <td [attr.colspan]="7" style="text-align: center">
             No records found.
           </td>
         </tr>

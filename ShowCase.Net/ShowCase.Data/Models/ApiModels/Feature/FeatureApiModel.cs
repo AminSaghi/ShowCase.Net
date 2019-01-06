@@ -11,9 +11,10 @@ namespace ShowCase.Data.Models.ApiModels.Feature
         public string content { get; set; }
 
         public string createDateTime { get; set; }
-        public string updateDateTime { get;set;}
+        public string updateDateTime { get; set; }
 
+        public FeatureApiModel parent { get; set; }
         public ListProjectsApiModel project { get; set; }
-        public IEnumerable<ListFeaturesApiModel> children { get;set;}
+        public IEnumerable<FeatureApiModel> children { get; set; }
     }
 }

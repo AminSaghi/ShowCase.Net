@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using ShowCase.Data.DbContexts;
 using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
@@ -105,7 +106,7 @@ namespace ShowCase.Api
             services.AddMvc(options =>
             {
                 //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+            }).AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -208,6 +209,7 @@ namespace ShowCase.Api
                     src => src.UpdateDateTime.LocalDateTime.ToString("yyyy-MM-dd HH:mm"))
                 .Map(dest => dest.published, src => src.Published)
                 .Map(dest => dest.project, src => src.Project)
+                .Map(dest => dest.parent, src => src.Parent)
                 .Map(dest => dest.children, src => src.Children);
 
             #endregion

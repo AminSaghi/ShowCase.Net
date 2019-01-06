@@ -14,23 +14,6 @@ namespace ShowCase.Service.DataManagers
 {
     public class FeatureManager
     {
-        //#region Singleton
-
-        //private static readonly FeatureManager instance = new FeatureManager(DataDbContext.CreateContext());
-
-        //static FeatureManager()
-        //{
-        //}
-
-        //private FeatureManager(DataDbContext dbcontext)
-        //{
-        //    db = dbcontext;
-        //}
-
-        //public static FeatureManager Instance => instance;
-
-        //#endregion
-
         public FeatureManager(DataDbContext dbcontext, ProjectManager projectManager)
         {
             db = dbcontext;
@@ -47,6 +30,8 @@ namespace ShowCase.Service.DataManagers
             try
             {
                 var features = await db.Features
+                    .Include(f => f.Project)
+                    .Include(f => f.Parent)
                     .Where(p => p.Published == onlyPublished)
                     .OrderBy(p => p.OrderIndex)
                     .ThenBy(p => p.UpdateDateTime)
@@ -75,7 +60,9 @@ namespace ShowCase.Service.DataManagers
             try
             {
                 var feature = await db.Features
-                     .FirstOrDefaultAsync(p => p.Id == id && p.Published == onlyPublished);
+                    .Include(f => f.Project)
+                    .Include(f => f.Parent)
+                    .FirstOrDefaultAsync(p => p.Id == id && p.Published == onlyPublished);
 
                 return new CrudOperationResult<Feature>
                 {
@@ -83,6 +70,7 @@ namespace ShowCase.Service.DataManagers
                     StatusCode = 200,
                     ReturningValue = feature
                 };
+
             }
             catch (Exception ex)
             {
@@ -183,7 +171,7 @@ namespace ShowCase.Service.DataManagers
         {
             try
             {
-                var getFeatureResult = await GetFeatureAsync(model.id, false);            
+                var getFeatureResult = await GetFeatureAsync(model.id, false);
                 if (getFeatureResult.Success)
                 {
                     var feature = getFeatureResult.ReturningValue;
@@ -217,7 +205,7 @@ namespace ShowCase.Service.DataManagers
                                 Success = false,
                                 StatusCode = 400,
                                 Message = ReturningMessages.InvalidDataSupplied
-                            };                          
+                            };
                         }
                     }
                     else
@@ -241,7 +229,7 @@ namespace ShowCase.Service.DataManagers
                         StatusCode = 200,
                         ReturningValue = feature,
                         Message = ReturningMessages.UpdateSuccessful(feature)
-                    };                    
+                    };
                 }
                 else
                 {
@@ -250,7 +238,7 @@ namespace ShowCase.Service.DataManagers
                         Success = false,
                         StatusCode = 404,
                         Message = ReturningMessages.NotFound(getFeatureResult.ReturningValue)
-                    };                 
+                    };
                 }
             }
             catch (Exception ex)
@@ -260,7 +248,7 @@ namespace ShowCase.Service.DataManagers
                     Success = false,
                     StatusCode = 500,
                     Message = ex.Message
-                };                
+                };
             }
         }
 
@@ -281,7 +269,7 @@ namespace ShowCase.Service.DataManagers
                         Success = true,
                         StatusCode = 200,
                         Message = ReturningMessages.DeleteSuccessful(feature)
-                    };                    
+                    };
                 }
                 else
                 {
@@ -290,7 +278,7 @@ namespace ShowCase.Service.DataManagers
                         Success = false,
                         StatusCode = 404,
                         Message = ReturningMessages.NotFound(getFeatureResult.ReturningValue)
-                    };                    
+                    };
                 }
             }
             catch (Exception ex)

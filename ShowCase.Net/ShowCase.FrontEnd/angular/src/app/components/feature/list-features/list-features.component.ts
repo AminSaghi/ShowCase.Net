@@ -32,7 +32,7 @@ export class ListFeaturesComponent implements OnInit {
 
     this.featureService.getFeatures().subscribe(response => {
       this.features = response;
-      this.featureNodes = Helpers.createTreeNodesOf(this.features);
+      this.featureNodes = Helpers.createTreeNodesOf('feature', this.features);
     });
   }
 
@@ -48,8 +48,8 @@ export class ListFeaturesComponent implements OnInit {
   deleteFeature(FeatureId: number) {
     this.featureService.deleteFeature(FeatureId).subscribe(() => {
       this.features = this.features.filter(i => i.id !== FeatureId);
-      this.pushedIds = [];
-      this.featureNodes = this.createTreeNodesOf(this.features);
+
+      this.featureNodes = Helpers.createTreeNodesOf('feature', this.features);
     });
   }
 
@@ -59,33 +59,5 @@ export class ListFeaturesComponent implements OnInit {
       summary: summary,
       detail: detail
     });
-  }
-
-  createTreeNodesOf(elements: any[]) {
-    const that = this;
-    const result = [];
-
-    elements.forEach(function (node) {
-      if (!that.pushedIds.includes(node.id)) {
-        that.pushedIds.push(node.id);
-
-        const treeNode = {
-          'data': {
-            'id': node.id,
-            'orderIndex': node.orderIndex,
-            'title': node.title,
-            'slug': node.slug,
-            'projectName': node.projectName,
-            'updateDateTime': node.updateDateTime,
-            'published': node.published
-          },
-          'children': (node.children && node.children.length > 0 ? that.createTreeNodesOf(node.children) : [])
-        };
-
-        result.push(treeNode);
-      }
-    });
-
-    return result;
   }
 }

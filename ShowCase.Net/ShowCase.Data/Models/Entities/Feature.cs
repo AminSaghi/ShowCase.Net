@@ -14,6 +14,6 @@ namespace ShowCase.Data.Models.Entities
 
         public virtual Project Project { get; set; }
         public virtual Feature Parent { get; set; }
-        public ICollection<Feature> Children { get; set; }
+        public virtual ICollection<Feature> Children { get; set; }
     }
 }
