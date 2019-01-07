@@ -8,6 +8,7 @@ import { EditorModule } from 'primeng/editor';
 import { ManageRoutingModule } from './manage-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { AccountComponent } from './account/account.component';
+import { ManageHomeComponent } from './manage-home/manage-home.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { AccountComponent } from './account/account.component';
     ManageRoutingModule,
     SettingsComponent
   ],
-  declarations: [AccountComponent]
+  declarations: [AccountComponent, ManageHomeComponent]
 })
 export class ManageModule { }
