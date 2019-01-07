@@ -1,4 +1,4 @@
-import { MenuItem, TreeNode } from 'primeng/api';
+import { MenuItem, TreeNode, MessageService } from 'primeng/api';
 
 import { Project } from 'src/app/api-client/models';
 
@@ -71,5 +71,13 @@ export class Helpers {
         });
 
         return result;
+    }
+
+    public static addToast(messageService: MessageService, severity, summary, detail) {
+        messageService.add({
+            severity: severity,
+            summary: summary,
+            detail: detail
+        });
     }
 }

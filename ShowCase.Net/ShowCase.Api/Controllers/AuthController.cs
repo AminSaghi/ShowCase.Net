@@ -40,7 +40,7 @@ namespace ShowCase.Api.Controllers
                     var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
                     var userClaims = new Claim[]
                     {
-                        new Claim(JwtRegisteredClaimNames.Sub, model.UserName.ToLower())                      
+                        new Claim(ClaimTypes.NameIdentifier, model.UserName.ToLower())                      
                     };
                     var jwtToken = new JwtSecurityToken(            
                         claims: userClaims, 
@@ -62,32 +62,27 @@ namespace ShowCase.Api.Controllers
             }
         }
 
-        [HttpPost("changePass")]
+        [HttpPost("changePassword")]
         public async Task<IActionResult> PostChangePassword([FromBody] ChangePasswordApiModel model)
         {
             if (ModelState.IsValid)
             {
-                var userName = User.Identity.Name;
+                var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 var identityUser = await UserManager.FindByNameAsync(userName);
 
-                var changePasswordResult = await UserManager.ChangePasswordAsync(identityUser, model.CurrentPassword, model.NewPassword);
+                var changePasswordResult = await UserManager.ChangePasswordAsync(identityUser, model.currentPassword, model.newPassword);
                 if (changePasswordResult.Succeeded)
                 {
                     return Ok(ReturningMessages.PasswordChangedSuccessfully);
                 }
                 else
-                {
-                    var errors = string.Join("\n",
-                        changePasswordResult.Errors
-                            .Select(e => e.Description)
-                            .ToArray());
-
-                    return BadRequest(errors);
+                {                    
+                    return BadRequest(ReturningMessages.IdentityResultErrors(changePasswordResult));
                 }                
             }
             else
             {
-                return BadRequest(ReturningMessages.InvalidDataSupplied);
+                return BadRequest(ReturningMessages.ModelStateErrors(ModelState));
             }
         }
 

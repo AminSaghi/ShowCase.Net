@@ -2,15 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { CardModule } from 'primeng/card';
-import { FileUploadModule } from 'primeng/fileupload';
-import { EditorModule } from 'primeng/editor';
 
 import { AppRoutingModule } from './app.routing';
 import { ApiClientModule } from './api-client';
@@ -20,7 +17,7 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SettingsComponent } from './components/settings/settings.component';
+
 
 @NgModule({
   declarations: [
@@ -28,8 +25,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     AdminLayoutComponent,
     DefaultLayoutComponent,
     LoginComponent,
-    NotFoundComponent,
-    SettingsComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +36,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     ToastModule,
     MenubarModule,
     PanelMenuModule,
-    CardModule,
-    FileUploadModule,
-    EditorModule,
 
     AppRoutingModule,
     ApiClientModule.forRoot()

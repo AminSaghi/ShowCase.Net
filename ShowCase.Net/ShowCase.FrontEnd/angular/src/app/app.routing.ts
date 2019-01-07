@@ -6,7 +6,8 @@ import { AdminLayoutComponent, DefaultLayoutComponent } from './layouts';
 import { AuthGuardService } from './api-client/auth/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './components/manage/settings/settings.component';
+import { AccountComponent } from './components/manage/account/account.component';
 
 export const routes: Routes = [
     {
@@ -73,19 +74,12 @@ export const routes: Routes = [
                 }
             },
             {
-                path: 'settings',
-                component: SettingsComponent,
+                path: 'manage',
+                loadChildren: './components/manage/manage.module#ManageModule',
                 data: {
-                    title: 'Settings'
+                    title: 'Manage'
                 }
-            },
-            // {
-            //     path: 'account',
-            //     component: AccountComponent,
-            //     data: {
-            //         title: 'Account'
-            //     }
-            // },
+            }
         ]
     },
     {
