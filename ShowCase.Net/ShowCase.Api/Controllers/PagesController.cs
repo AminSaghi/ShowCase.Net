@@ -71,7 +71,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest(ReturningMessages.InvalidDataSupplied);
+                return BadRequest(ReturningMessages.ModelStateErrors(ModelState));
             }
         }
 
@@ -93,7 +93,7 @@ namespace ShowCase.Api.Controllers
             }
             else
             {
-                return BadRequest(ReturningMessages.InvalidDataSupplied);
+                return BadRequest(ReturningMessages.ModelStateErrors(ModelState));
             }
         }
 
