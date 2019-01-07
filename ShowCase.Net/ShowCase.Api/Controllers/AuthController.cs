@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ShowCase.Data.Models.ApiModels.Account;
+using ShowCase.Data.Models.ApiModels.User;
 using ShowCase.Util.StaticClasses;
 using System;
 using System.Collections.Generic;
@@ -24,6 +27,13 @@ namespace ShowCase.Api.Controllers
 
         public UserManager<IdentityUser> UserManager { get; private set; }
         public SignInManager<IdentityUser> SignInManager { get; private set; }
+
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await UserManager.Users.ToArrayAsync();
+
+            return Ok(users.Adapt<ListUsersApiModel[]>());
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
