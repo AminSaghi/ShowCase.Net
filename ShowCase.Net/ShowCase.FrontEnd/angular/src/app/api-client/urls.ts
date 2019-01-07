@@ -10,8 +10,9 @@ export class Urls {
     /*
      * Auth Service
      */
-    static AUTH = 'auth/';
-    public static LOGIN = Urls.BASE + Urls.AUTH + 'login';
+    static AUTH = Urls.BASE + 'auth/';
+    public static LOGIN = Urls.AUTH + 'login';
+    public static CHANGE_PASSWORD = Urls.AUTH + 'changePassword';
 
     /*
      * Users Service
