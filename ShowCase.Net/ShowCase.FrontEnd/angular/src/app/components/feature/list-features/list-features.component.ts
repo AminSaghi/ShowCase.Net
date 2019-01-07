@@ -28,7 +28,7 @@ export class ListFeaturesComponent implements OnInit {
   }
 
   getFeatures() {
-    this.addToast('info', 'Loading data', 'Please wait ...');
+    Helpers.addToast(this.messageService, 'info', 'Loading data', 'Please wait ...');
 
     this.featureService.getFeatures().subscribe(response => {
       this.features = response;
@@ -50,14 +50,6 @@ export class ListFeaturesComponent implements OnInit {
       this.features = this.features.filter(i => i.id !== FeatureId);
 
       this.featureNodes = Helpers.createTreeNodesOf('feature', this.features);
-    });
-  }
-
-  addToast(severity, summary, detail) {
-    this.messageService.add({
-      severity: severity,
-      summary: summary,
-      detail: detail
     });
   }
 }

@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 
 import { Feature, Project } from 'src/app/api-client/models';
 import { FeatureService, ProjectService } from 'src/app/api-client';
+import { Helpers } from 'src/app/shared/helpers';
 
 @Component({
   selector: 'app-create-edit-feature',
@@ -89,13 +90,13 @@ export class CreateEditFeatureComponent implements OnInit {
 
   createFeature() {
     if (this.featureForm.valid) {
-      this.addToast('info', 'Creating Feature', 'Please wait ...');
+      Helpers.addToast(this.messageService, 'info', 'Creating Feature', 'Please wait ...');
 
       this.setProjectIdFromProject();
       this.setParentIdFromParent();
       const formValue = this.featureForm.value;
       this.featureService.createFeature(formValue).subscribe(response => {
-        this.addToast('success', 'Done', response);
+        Helpers.addToast(this.messageService, 'success', 'Done', response);
       });
     } else {
       Object.keys(this.featureForm.controls).forEach(field => {
@@ -107,13 +108,13 @@ export class CreateEditFeatureComponent implements OnInit {
 
   editFeature() {
     if (this.featureForm.valid) {
-      this.addToast('info', 'Editing Feature', 'Please wait ...');
+      Helpers.addToast(this.messageService, 'info', 'Editing Feature', 'Please wait ...');
 
       this.setProjectIdFromProject();
       this.setParentIdFromParent();
       const formValue = this.featureForm.value;
       this.featureService.editFeature(formValue).subscribe(response => {
-        this.addToast('success', 'Done', response);
+        Helpers.addToast(this.messageService, 'success', 'Done', response);
       });
     } else {
       Object.keys(this.featureForm.controls).forEach(field => {
@@ -133,14 +134,6 @@ export class CreateEditFeatureComponent implements OnInit {
 
   isInvalid(controlName) {
     return this.featureForm.controls[controlName].invalid && this.featureForm.controls[controlName].touched;
-  }
-
-  addToast(severity, summary, detail) {
-    this.messageService.add({
-      severity: severity,
-      summary: summary,
-      detail: detail
-    });
   }
 
   goBack() { this.location.back(); }
