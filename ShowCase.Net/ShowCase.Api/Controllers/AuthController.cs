@@ -26,14 +26,7 @@ namespace ShowCase.Api.Controllers
         }
 
         public UserManager<IdentityUser> UserManager { get; private set; }
-        public SignInManager<IdentityUser> SignInManager { get; private set; }
-
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await UserManager.Users.ToArrayAsync();
-
-            return Ok(users.Adapt<ListUsersApiModel[]>());
-        }
+        public SignInManager<IdentityUser> SignInManager { get; private set; }        
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -94,6 +87,14 @@ namespace ShowCase.Api.Controllers
             {
                 return BadRequest(ReturningMessages.ModelStateErrors(ModelState));
             }
+        }
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await UserManager.Users.ToArrayAsync();
+
+            return Ok(users.Adapt<ListUsersApiModel[]>());
         }
 
         private async Task<bool> CheckCredentials(string userName, string password)

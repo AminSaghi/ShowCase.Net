@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Urls } from '../urls';
 import { ChangePasswordApiModel } from '../models/api-models/change-password-api-model';
+import { User } from '../models';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,10 @@ export class AuthService {
 
     changePassword(changePassModel: ChangePasswordApiModel): Observable<ChangePasswordApiModel> {
         return this.http.post<ChangePasswordApiModel>(Urls.CHANGE_PASSWORD, changePassModel);
+    }
+
+    getUsers(): Observable<User[]> {
+        return this.http.get<User[]>(Urls.USERS);
     }
 
     isAuthenticated() {
