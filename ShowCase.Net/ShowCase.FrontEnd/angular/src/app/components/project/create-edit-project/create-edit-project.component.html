@@ -36,12 +36,8 @@
           <label for="image">Image</label>
         </div>
         <div class="p-col-10">
-          <p-fileUpload files="images[]" accept="image/*" auto="true" customUpload="true"
-            (uploadHandler)="getBase64Image($event)"
-            (onClear)="clearImageUrl()"
-            (onRemove)="clearImageUrl($event)"
-            maxFileSize="500000"
-            showUploadButton="false"
+          <p-fileUpload files="images[]" accept="image/*" auto="true" customUpload="true" (uploadHandler)="getBase64Image($event)"
+            (onClear)="clearImageUrl()" (onRemove)="clearImageUrl($event)" maxFileSize="500000" showUploadButton="false"
             previewWidth="100"></p-fileUpload>
         </div>
         <!-- OrderIndex -->
@@ -57,18 +53,16 @@
         </div>
         <div class="p-col-3" *ngIf="editMode">
           <p-toggleButton formControlName="published"></p-toggleButton>
-        </div>        
+        </div>
       </div>
     </form>
   </div>
   <p-footer>
-    <button pButton (click)="editMode ? editProject() : createProject()" [ngClass]="commandButtonClass + ' ui-button-raised'" [disabled]="!projectForm.valid"
-      icon="{{commandButtonIcon}}">
-      {{commandButtonText}}
+    <button pButton (click)="editMode ? editProject() : createProject()" label="{{commandButtonText}}" [ngClass]="commandButtonClass + ' ui-button-raised'"
+      [disabled]="!projectForm.valid" icon="{{commandButtonIcon}}">
     </button>
     &nbsp;
-    <button pButton (click)="goBack()" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
-      Return to list
+    <button pButton (click)="goBack()" label="Return to list" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
     </button>
   </p-footer>
 </p-card>
