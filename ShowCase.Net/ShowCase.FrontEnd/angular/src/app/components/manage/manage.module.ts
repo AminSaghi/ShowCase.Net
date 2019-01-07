@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CardModule } from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -13,14 +14,15 @@ import { ManageHomeComponent } from './manage-home/manage-home.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     CardModule,
     FileUploadModule,
     EditorModule,
 
-    ManageRoutingModule,
-    SettingsComponent
+    ManageRoutingModule
   ],
-  declarations: [AccountComponent, ManageHomeComponent]
+  declarations: [SettingsComponent, AccountComponent, ManageHomeComponent]
 })
 export class ManageModule { }

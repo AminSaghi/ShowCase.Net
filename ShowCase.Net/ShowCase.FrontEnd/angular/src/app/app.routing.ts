@@ -79,21 +79,7 @@ export const routes: Routes = [
                 data: {
                     title: 'Manage'
                 }
-            },
-            // {
-            //     path: 'settings',
-            //     component: SettingsComponent,
-            //     data: {
-            //         title: 'Settings'
-            //     }
-            // },
-            // {
-            //     path: 'account',
-            //     component: AccountComponent,
-            //     data: {
-            //         title: 'Account'
-            //     }
-            // },
+            }
         ]
     },
     {
