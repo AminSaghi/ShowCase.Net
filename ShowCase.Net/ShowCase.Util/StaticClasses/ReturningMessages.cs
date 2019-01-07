@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ShowCase.Util.StaticClasses
@@ -11,6 +14,14 @@ namespace ShowCase.Util.StaticClasses
         public static string InvalidUserNameOrPassword => "Invalid username or password.";
 
         public static string PasswordChangedSuccessfully => "Password changed successfully.";
+
+        public static string IdentityResultErrors(IdentityResult identityResult)
+        {
+            return string.Join("\n",
+                identityResult.Errors
+                    .Select(e => e.Description)
+                    .ToArray());
+        }
 
         #endregion
 
@@ -38,7 +49,16 @@ namespace ShowCase.Util.StaticClasses
         public static string NotFound(object entity)
         {
             return $"{GetTypeName(entity)} NOT found.";
-        }                
+        }
+
+        public static string ModelStateErrors(ModelStateDictionary modelState)
+        {
+            return string.Join("\n* ",
+                modelState.Values
+                    .SelectMany(me => me.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToArray());
+        }
 
         #endregion
 

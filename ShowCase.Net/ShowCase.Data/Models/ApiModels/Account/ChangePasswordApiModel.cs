@@ -8,17 +8,20 @@ namespace ShowCase.Data.Models.ApiModels.Account
     public class ChangePasswordApiModel
     {
         [Required]
-        public string CurrentPassword { get; set; }
+        [Display(Name = "Current Password")]
+        public string currentPassword { get; set; }
 
         [Required]
+        [Display(Name = "New Password")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 7)]
         [DataType(DataType.Password)]
-        public string NewPassword { get; set; }
+        public string newPassword { get; set; }
 
         [Required]
+        [Display(Name = "Confirm New Password")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 7)]
         [DataType(DataType.Password)]
-        [Compare("NewPassword", ErrorMessage = "The new password and its confirm does NOT match.")]
-        public string ConfirmNewPassword { get; set; }
+        [Compare("newPassword", ErrorMessage = "The new password and its confirm does NOT match.")]
+        public string confirmNewPassword { get; set; }
     }
 }

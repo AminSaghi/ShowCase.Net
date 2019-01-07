@@ -19,7 +19,7 @@ export class AuthService {
     }
 
     changePassword(changePassModel: ChangePasswordApiModel): Observable<ChangePasswordApiModel> {
-        return this.http.post<ChangePasswordApiModel>(Urls.SETTINGS, changePassModel);
+        return this.http.post<ChangePasswordApiModel>(Urls.CHANGE_PASSWORD, changePassModel);
     }
 
     isAuthenticated() {

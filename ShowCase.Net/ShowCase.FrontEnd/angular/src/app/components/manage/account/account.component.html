@@ -1,3 +1,27 @@
-<p>
-  account works!
-</p>
+<div class="p-grid">
+  <div class="p-col-4">
+    <p-card header="Change Password">
+      <form [formGroup]="changePasswordForm">
+        <div class="p-grid">
+          <div class="p-col">
+            <label>Current Password</label><br />
+            <input pInputText type="password" formControlName="currentPassword">
+          </div>
+          <div class="p-col">
+            <label>New Password</label><br />
+            <input pInputText type="password" formControlName="newPassword">
+          </div>
+          <div class="p-col">
+            <label>Confirm New Password</label><br />
+            <input pInputText type="password" formControlName="confirmNewPassword">
+          </div>
+        </div>
+      </form>
+      <p-footer>
+<button pButton type="button" (click)="performChangePassword()" label="Change Password" [disabled]="!changePasswordForm.valid"
+  class="ui-button-warning ui-button-raised">
+        </button>
+      </p-footer>
+    </p-card>
+  </div>
+</div>
