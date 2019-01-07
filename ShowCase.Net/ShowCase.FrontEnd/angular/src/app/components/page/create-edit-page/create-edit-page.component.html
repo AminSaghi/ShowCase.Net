@@ -49,13 +49,11 @@
     </form>
   </div>
   <p-footer>
-    <button pButton (click)="editMode ? editPage() : createPage()" [ngClass]="commandButtonClass + ' ui-button-raised'"
+    <button pButton (click)="editMode ? editPage() : createPage()" label="{{commandButtonText}}" [ngClass]="commandButtonClass + ' ui-button-raised'"
       [disabled]="!pageForm.valid" icon="{{commandButtonIcon}}">
-      {{commandButtonText}}
     </button>
     &nbsp;
-    <button pButton (click)="goBack()" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
-      Return to list
+    <button pButton (click)="goBack()" label="Return to list" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
     </button>
   </p-footer>
 </p-card>
