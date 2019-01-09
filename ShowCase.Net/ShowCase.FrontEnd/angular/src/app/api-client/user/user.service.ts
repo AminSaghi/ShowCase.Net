@@ -30,7 +30,7 @@ export class UserService {
     return this.http.put<User>(Urls.USERS, user);
   }
 
-  deleteUser(id: number): Observable<any> {
+  deleteUser(id: string): Observable<any> {
     const url = `${Urls.USERS}/${id}`;
     return this.http.delete<User>(url);
   }

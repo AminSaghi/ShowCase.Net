@@ -73,7 +73,21 @@ export class Helpers {
         return result;
     }
 
+    public static addCreatingToast(messageService: MessageService, entityName: string) {
+        Helpers.addCrudToast(messageService, 'Creating', entityName);
+    }
+    public static addUpdatingToast(messageService: MessageService, entityName: string) {
+        Helpers.addCrudToast(messageService, 'Updating', entityName);
+    }
+    public static addDeletingToast(messageService: MessageService, entityName: string) {
+        Helpers.addCrudToast(messageService, 'Deleting', entityName);
+    }
+    private static addCrudToast(messageService: MessageService, operation: string, entityName: string) {
+        Helpers.addToast(messageService, 'info', `${operation} ${entityName}`, 'Please wait ...');
+    }
     public static addToast(messageService: MessageService, severity, summary, detail) {
+        messageService.clear();
+
         messageService.add({
             severity: severity,
             summary: summary,

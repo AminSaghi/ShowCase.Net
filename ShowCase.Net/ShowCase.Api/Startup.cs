@@ -16,6 +16,7 @@ using ShowCase.Data.Models.ApiModels.Feature;
 using ShowCase.Data.Models.ApiModels.Page;
 using ShowCase.Data.Models.ApiModels.Project;
 using ShowCase.Data.Models.ApiModels.Settings;
+using ShowCase.Data.Models.ApiModels.User;
 using ShowCase.Data.Models.Entities;
 using ShowCase.Service.DataManagers;
 using ShowCase.Util.StaticClasses;
@@ -38,8 +39,9 @@ namespace ShowCase.Api
             //services.AddDbContext<DataDbContext>(options =>
             //    options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);            
 
-            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);            
+            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);
 
+            services.AddScoped<AuthManager>();
             services.AddScoped<PageManager>();
             services.AddScoped<ProjectManager>();
             services.AddScoped<FeatureManager>();
@@ -109,7 +111,6 @@ namespace ShowCase.Api
             }).AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
@@ -212,6 +213,18 @@ namespace ShowCase.Api
                 .Map(dest => dest.project, src => src.Project)
                 .Map(dest => dest.parent, src => src.Parent)
                 .Map(dest => dest.children, src => src.Children);
+
+            #endregion
+
+            #region User
+
+            TypeAdapterConfig<IdentityUser, ListUsersApiModel>
+                .ForType()
+                .Map(dest => dest.id, src => src.Id)
+                .Map(dest => dest.userName, src => src.UserName)
+                .Map(dest => dest.email, src => src.Email)
+                .Map(dest => dest.status, src => src.LockoutEnabled && src.LockoutEnd.HasValue && src.LockoutEnd.Value > DateTimeOffset.Now ?
+                    "Locked out" : "Active");       
 
             #endregion
 

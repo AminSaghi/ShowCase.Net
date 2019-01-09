@@ -17,7 +17,7 @@ export class Urls {
     /*
      * Users Service
      */
-    static USERS = Urls.BASE + 'users/';
+    static USERS = Urls.AUTH + 'users/';
 
     /*
      * Pages Service
