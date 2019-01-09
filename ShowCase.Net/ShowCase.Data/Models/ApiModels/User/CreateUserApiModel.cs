@@ -21,7 +21,7 @@ namespace ShowCase.Data.Models.ApiModels.User
         public string password { get; set; }
 
         [Required]
-        [Compare("Password")]
+        [Compare("password")]
         [Display(Name = "Confirm Password")]
         public string confirmPassword { get; set; }
     }

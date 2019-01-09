@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
@@ -12,13 +14,16 @@ import { CreateEditUserComponent } from './create-edit-user/create-edit-user.com
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
+    CardModule,
     ConfirmDialogModule,
-    ConfirmationService,
     TableModule,
 
     UserRoutingModule
   ],
+  providers: [ConfirmationService],
   declarations: [ListUsersComponent, CreateEditUserComponent]
 })
 export class UserModule { }

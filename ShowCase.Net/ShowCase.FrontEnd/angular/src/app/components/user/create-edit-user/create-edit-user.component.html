@@ -1,0 +1,46 @@
+<p-card header="{{cardHeaderText}}">
+  <div class="card-body">
+    <form [formGroup]="userForm">
+      <div class="p-grid">
+        <!-- UserName -->
+        <div class="p-col-2">
+          <label for="userName">User Name</label>
+        </div>
+        <div class="p-col-4">
+          <input pInputText type="text" formControlName="userName" [ngClass]="{'error': isInvalid('userName')}" class="required" />
+        </div>
+        <!-- Email -->
+        <div class="p-col-2">
+          <label for="email">Email</label>
+        </div>
+        <div class="p-col-4">
+          <input pInputText type="text" formControlName="email" [ngClass]="{'error': isInvalid('email')}" class="required" />
+        </div>
+        <!-- Password -->
+        <div class="p-col-2" *ngIf="!editMode">
+          <label for="password">Password</label>
+        </div>
+        <div class="p-col-4" *ngIf="!editMode">
+          <input pInputText type="password" formControlName="password" [ngClass]="{'error': isInvalid('password')}"
+            class="required" />
+        </div>
+        <!-- ConfirmPassword -->
+        <div class="p-col-2" *ngIf="!editMode">
+          <label for="confirmPassword">Confirm Password</label>
+        </div>
+        <div class="p-col-4" *ngIf="!editMode">
+          <input pInputText type="password" formControlName="confirmPassword" [ngClass]="{'error': isInvalid('confirmPassword')}"
+            class="required" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <button pButton (click)="editMode ? editUser() : createUser()" label="{{commandButtonText}}" [ngClass]="commandButtonClass + ' ui-button-raised'"
+      [disabled]="!userForm.valid" icon="{{commandButtonIcon}}">
+    </button>
+    &nbsp;
+    <button pButton (click)="goBack()" label="Return to list" class="ui-button-primary ui-button-raised" icon="pi pi-chevron-left">
+    </button>
+  </p-footer>
+</p-card>

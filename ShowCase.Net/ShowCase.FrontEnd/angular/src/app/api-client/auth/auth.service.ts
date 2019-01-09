@@ -27,6 +27,24 @@ export class AuthService {
         return this.http.get<User[]>(Urls.USERS);
     }
 
+    getUser(id: number): Observable<User> {
+        const url = `${Urls.USERS}/${id}`;
+        return this.http.get<User>(url);
+    }
+
+    createUser(user: User): Observable<any> {
+        return this.http.post<any>(Urls.USERS, user);
+    }
+
+    editUser(user: User): Observable<User> {
+        return this.http.put<User>(Urls.USERS, user);
+    }
+
+    deleteUser(id: string): Observable<any> {
+        const url = `${Urls.USERS}/${id}`;
+        return this.http.delete<User>(url);
+    }
+
     isAuthenticated() {
         return !!localStorage.getItem('token');
     }
