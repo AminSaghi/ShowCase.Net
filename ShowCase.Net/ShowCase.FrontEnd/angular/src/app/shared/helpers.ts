@@ -73,7 +73,12 @@ export class Helpers {
         return result;
     }
 
+    public static addCreatingToast(messageService: MessageService, entityName: string) {
+        Helpers.addToast(messageService, 'info', `Creating ${entityName}`, 'Please wait ...');
+    }
     public static addToast(messageService: MessageService, severity, summary, detail) {
+        messageService.clear();
+
         messageService.add({
             severity: severity,
             summary: summary,
