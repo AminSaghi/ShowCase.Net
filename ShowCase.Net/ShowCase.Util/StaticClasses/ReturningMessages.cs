@@ -15,6 +15,8 @@ namespace ShowCase.Util.StaticClasses
 
         public static string PasswordChangedSuccessfully => "Password changed successfully.";
 
+        public static string UserExists => "A user with same username exists.";
+
         public static string IdentityResultErrors(IdentityResult identityResult)
         {
             return string.Join("\n",
