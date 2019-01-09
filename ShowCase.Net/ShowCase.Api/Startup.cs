@@ -39,8 +39,9 @@ namespace ShowCase.Api
             //services.AddDbContext<DataDbContext>(options =>
             //    options.UseSqlite(Configuration.GetConnectionString("DataConnection")), ServiceLifetime.Transient);            
 
-            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);            
+            services.AddDbContext<DataDbContext>(ServiceLifetime.Scoped);
 
+            services.AddScoped<AuthManager>();
             services.AddScoped<PageManager>();
             services.AddScoped<ProjectManager>();
             services.AddScoped<FeatureManager>();
