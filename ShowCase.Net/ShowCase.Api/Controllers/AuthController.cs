@@ -70,7 +70,7 @@ namespace ShowCase.Api.Controllers
             }
         }
 
-        [HttpGet("users")]
+        [HttpGet("users/{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
             var getUserResult = await AuthManager.GetIdentityUserAsync(id);
