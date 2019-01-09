@@ -55,7 +55,8 @@ namespace ShowCase.Service.DataManagers
                     return new AuthOperationResult<string>
                     {
                         Success = true,
-                        Message = jwtTokenHandler
+                        StatusCode = 200,
+                        ReturningValue = jwtTokenHandler
                     };                    
                 }
                 else
